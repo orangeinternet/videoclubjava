@@ -6,7 +6,7 @@ import java.util.Locale;
 /**
  * @author Jairo Figueroa Jimenez
  * @version 1.0
- * Fecha: 26/05/2010 
+ * Fecha: 25/05/2010 
  */
 
 public class Utiles {
