@@ -2,16 +2,16 @@ package videoclub;
 
 import java.lang.*;
 import java.util.*;
-/*
+/**
  * @version VIDEOCLUB 1.0
  * @author Miguel Angel Llamas
- * nombre contendrá en nombre del Socio
+ * fecha 25/05/2010
+ */
+/* nombre contendrá en nombre del Socio
  * apellido idem
  * saldo contendrá un valor double, simula la tarjeta de credito del cliente 
  * para poder sacar películas
  * idsocio contendrá un valor único para identificar al socio.
- * 
- *
  */
 public class Socio {
 	private String nombre = "";
