@@ -3,7 +3,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
+import videoclub.Utiles;
 
 public class Videoclub {
 
@@ -187,6 +187,80 @@ public class Videoclub {
 	 */
 	public static void main(String[] args) {
 		Videoclub videoclub= new Videoclub();
+		Utiles utiles = new Utiles();
+		Bienvenida(videoclub);
+		Menu(utiles);
+	}
+	
+	/**
+	 * Metodo que nos imprime por pantalla el segundo menu,
+	 * en este caso el menu que nos permite alquilar, devolver o salir
+	 * 
+	 * @param utiles
+	 */
+	
+	public static void Menu(Utiles utiles){
+		boolean flag = true;
+		String sOpcion;
+		int iOpcion;
+		
+		/* Ojo: Las operaciones se pueden llevar a cabo todas las veces que 
+		 		el usuario desee, hasta que no presione la opcion 3. Salir*/
+		while (true) {
+			System.out.println("\n------------Menú TOPE------------");
+			System.out.println("Seleccione una opcion: ");
+			System.out.println("1. Alquilar");
+			System.out.println("2. Devolver");
+			System.out.println("3. Salir");
+			
+			// Recojo la opcion seleccionada por el usuario
+			sOpcion = cogerCadena();
+			
+			// Parseo el string a entero ya que el switch solo recoje enteros
+			iOpcion = utiles.StringAint(sOpcion);
+			
+			// Segun la opcion seleccionada se accedera a un metodo u otro
+			switch (iOpcion) {
+			case 1:
+				Alquilar();
+				break;
+			case 2:
+				Devolver();
+				break;
+			case 3:
+				flag = false;
+				break;
+			default:
+				System.out.println("Introduzca una de las 3 opciones por favor");
+			}
+		}
+		
+	}
+	
+	/**
+	 * Metodo que nos permite devolver una pelicula
+	 */
+	
+	public static void Devolver(){
+		
+	}
+	
+	/**
+	 * Metodo que nos permite alquilar una pelicula
+	 */
+	
+	public static void Alquilar(){
+		
+	}
+	
+	/**
+	 * Metodo que presenta la pantalla de los idiomas
+	 * 
+	 * @param videoclub
+	 */
+	
+	public static void Bienvenida(Videoclub videoclub){
+		
 		System.out.println("------------Bienvenido al Videoclub TOPE------------");
 		System.out.println("Seleccione el idioma: ");
 		System.out.println("1. Español");
@@ -196,7 +270,9 @@ public class Videoclub {
 		System.out.println("5. Alemán");
 		String aux= cogerCadena();
 		videoclub.idioma= aux;
+		
 	}
+	
 	
 	/**
 	 * Método auxiliar de recogida de datos por teclado
