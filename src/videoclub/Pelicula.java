@@ -2,11 +2,13 @@ package videoclub;
 
 import java.lang.*;
 import java.util.*;
-/*
- * @version VIDEOCLUB 1.0
+
+/** @version VIDEOCLUB 1.0
  * @author Miguel Angel Llamas
- * idpeli conendrá un valor único para cada objeo película, independientemente
- * si hay más de una copia del mismo título.
+ * fecha 25/05/2010
+ */
+ /*idpeli conendrá un valor único para cada objeo película, independientemente
+  si hay más de una copia del mismo título.
  * numalguiler contendrá el número de alquiler
  * título el nombre de la película
  * género, en principio tomará los valores de un objeto género que contendrá
@@ -14,9 +16,9 @@ import java.util.*;
  * altabd será la fecha con la que damos de alta un objeto pelicula en nuestra
  * base de datos.
  * ultimoalq contendrá la fecha del último alquiler del tíulo alquilado.
- *
- */
-public class Pelicula {
+*/
+
+ public class Pelicula {
 
 	private int idpeli = 0;
 	private int numalquiler = 0;
