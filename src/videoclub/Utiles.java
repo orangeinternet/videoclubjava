@@ -62,7 +62,15 @@ public class Utiles {
 	 */
 	
 	public int StringAint(String texto){
-		int opcion = Integer.parseInt(texto);
-		return opcion;
+		int opcion = 0; 
+		try{
+			opcion = Integer.parseInt(texto);
+			
+		} catch (NumberFormatException e){
+			System.out.println(e.toString());
+		} finally{
+			return opcion;
+		}
+		
 	}
 }
