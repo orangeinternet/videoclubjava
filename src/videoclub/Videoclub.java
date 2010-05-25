@@ -1,8 +1,14 @@
 package videoclub;
+import Pelicula;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import videoclub.Utiles;
 
 public class Videoclub {
@@ -189,17 +195,17 @@ public class Videoclub {
 		Videoclub videoclub= new Videoclub();
 		Utiles utiles = new Utiles();
 		Bienvenida(videoclub);
-		Menu(utiles);
+		Menu(utiles,videoclub);
 	}
 	
 	/**
 	 * Metodo que nos imprime por pantalla el segundo menu,
 	 * en este caso el menu que nos permite alquilar, devolver o salir
 	 * 
-	 * @param utiles
+	 * @param utiles,videoclub
 	 */
 	
-	public static void Menu(Utiles utiles){
+	public static void Menu(Utiles utiles,Videoclub videoclub){
 		boolean flag = true;
 		String sOpcion;
 		int iOpcion;
@@ -222,7 +228,7 @@ public class Videoclub {
 			// Segun la opcion seleccionada se accedera a un metodo u otro
 			switch (iOpcion) {
 			case 1:
-				Alquilar();
+				Alquilar(videoclub);
 				break;
 			case 2:
 				Devolver();
@@ -247,11 +253,68 @@ public class Videoclub {
 	
 	/**
 	 * Metodo que nos permite alquilar una pelicula
+	 * @param videoclub
 	 */
 	
-	public static void Alquilar(){
-		
+	public static void Alquilar(Videoclub videoclub){
+		topSemanal(videoclub);
 	}
+	
+	public static void topSemanal(Videoclub videoclub){
+		
+		Pelicula aPeliculas[] = new Pelicula[videoclub.getAlmacenes().size()];
+		ArrayList aListSemana = new ArrayList();
+		GregorianCalendar g = new GregorianCalendar();
+		GregorianCalendar fechaActual; 
+		GregorianCalendar fechaObjeto; 
+		int diaActual;
+		int mesActual;
+		int anioActual;
+		int diaObjeto;
+		int mesObjeto;
+		int anioObjeto;
+		
+		//Obtengo los objetos Date para cada una de ellas
+		Date fec1 = (Date) fechaActual.getTime();
+		Date fec2 = (Date) gc1.getTime();
+		//Realizo la operación
+		long time = fec2.getTime() - fec1.getTime();
+		//Muestro el resultado en días
+		System.out.println("\n"+time/(3600*24*1000));
+		
+		Calendar calendarioActual = new GregorianCalendar();
+		Calendar calendarioObjeto;
+		
+		diaActual = calendarioActual.get(Calendar.DAY_OF_MONTH);
+		mesActual = calendarioActual.get(Calendar.MONTH + 1) ;
+		anioActual = calendarioActual.get(Calendar.YEAR) ;
+		
+		for(Object o:videoclub.getAlquileres()){
+			if(o instanceof Pelicula){
+				diaObjeto = ((Pelicula) o).getUltimoalq().getDay();
+				mesObjeto = ((Pelicula) o).getUltimoalq().getMonth();
+				anioObjeto = ((Pelicula) o).getUltimoalq());
+			
+				calendarioObjeto.setTime((Pelicula) o).getUltimoalq());
+				
+				fechaActual = new GregorianCalendar(anioActual, mesActual, diaActual);
+				fechaObjeto = new GregorianCalendar(, 11, 25);
+			}
+		}
+		
+		Pelicula aux = new Pelicula();
+		
+		for(int i=2;i<=aPeliculas.length;i++){
+			for(int j=0;j<aPeliculas.length-1;j++) {
+				if (aPeliculas[j].getNumalquiler()<aPeliculas[j+1].getNumalquiler()){
+					aux = aPeliculas[j];
+					aPeliculas[j] = aPeliculas[j+1];
+					aPeliculas[j+1] = aux;
+				}
+			}
+		}
+	}
+	
 	
 	/**
 	 * Metodo que presenta la pantalla de los idiomas
