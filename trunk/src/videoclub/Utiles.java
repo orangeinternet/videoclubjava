@@ -54,4 +54,15 @@ public class Utiles {
 			return d;
 		}
 	}
+	
+	/**
+	 * Funcion que parsea una cadena a un entero
+	 * 
+	 * @param texto
+	 */
+	
+	public int StringAint(String texto){
+		int opcion = Integer.parseInt(texto);
+		return opcion;
+	}
 }
