@@ -30,6 +30,6 @@ public class Distribuidor {
 	 */
 	
 	public String toString(){
-		
+		return null;
 	}
 }

@@ -51,12 +51,10 @@ public class Alquiler {
 	/**
 	 * Metodo toString sobre-escrito de la clase object
 	 * que devuelve una cadena
-	 * 
-	 * @return String
 	 */
 	
 	public String toString(){
-		
+		return null;
 	}
 	
 }
