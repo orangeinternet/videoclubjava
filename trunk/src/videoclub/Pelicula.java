@@ -24,6 +24,7 @@ public class Pelicula {
 	private String genero = "";
 	private Date altabd;
 	private Date ultimoalq;
+	
 
 	
 	public int getIdpeli() {
