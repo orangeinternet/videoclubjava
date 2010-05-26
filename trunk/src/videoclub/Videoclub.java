@@ -1,6 +1,4 @@
 package videoclub;
-import Pelicula;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,6 +22,10 @@ public class Videoclub {
 	private ArrayList distribuidores;
 	private ArrayList almacenes;
 	private ArrayList oficinas;
+	
+	Videoclub(){
+		this.alquileres = new ArrayList();
+	}
 	
 	/**
 	 * Atributos de la clase Videoclub
@@ -193,6 +195,30 @@ public class Videoclub {
 	 */
 	public static void main(String[] args) {
 		Videoclub videoclub= new Videoclub();
+		
+		Pelicula p1 = new Pelicula();
+		Pelicula p2 = new Pelicula();
+		Pelicula p3 = new Pelicula();
+		Pelicula p4 = new Pelicula();
+		Pelicula p5 = new Pelicula();
+		
+		p1.setNumalquiler(1);
+		p1.setUltimoalq(new Date(25,05,2010));
+		p2.setNumalquiler(10);
+		p2.setUltimoalq(new Date(25,05,2010));
+		p3.setNumalquiler(6);
+		p3.setUltimoalq(new Date(25,05,2010));
+		p4.setNumalquiler(4);
+		p4.setUltimoalq(new Date(25,05,2010));
+		p5.setNumalquiler(2);
+		p5.setUltimoalq(new Date(25,05,2010));
+		
+		videoclub.getAlquileres().add(p1);
+		videoclub.getAlquileres().add(p2);
+		videoclub.getAlquileres().add(p3);
+		videoclub.getAlquileres().add(p4);
+		videoclub.getAlquileres().add(p5);
+		
 		Utiles utiles = new Utiles();
 		Bienvenida(videoclub);
 		Menu(utiles,videoclub);
@@ -212,7 +238,7 @@ public class Videoclub {
 		
 		/* Ojo: Las operaciones se pueden llevar a cabo todas las veces que 
 		 		el usuario desee, hasta que no presione la opcion 3. Salir*/
-		while (true) {
+		while (flag) {
 			System.out.println("\n------------Menú TOPE------------");
 			System.out.println("Seleccione una opcion: ");
 			System.out.println("1. Alquilar");
@@ -228,7 +254,7 @@ public class Videoclub {
 			// Segun la opcion seleccionada se accedera a un metodo u otro
 			switch (iOpcion) {
 			case 1:
-				Alquilar(videoclub);
+				Alquilar(videoclub,utiles);
 				break;
 			case 2:
 				Devolver();
@@ -256,34 +282,65 @@ public class Videoclub {
 	 * @param videoclub
 	 */
 	
-	public static void Alquilar(Videoclub videoclub){
-		topSemanal(videoclub);
+	public static void Alquilar(Videoclub videoclub,Utiles utiles){
+		boolean flag = true;
+		String sOpcion;
+		int iOpcion;
+		
+		/* Ojo: Las operaciones se pueden llevar a cabo todas las veces que 
+		 		el usuario desee, hasta que no presione la opcion 3. Salir*/
+		while (flag) {
+			System.out.println("\n------------Alquiler TOPE------------");
+			System.out.println("Seleccione una opcion: ");
+			System.out.println("1. TopSemanal");
+			System.out.println("2. TopMensual");
+			System.out.println("3. Novedades");
+			System.out.println("4. Busqueda de Películas");
+			System.out.println("5. Volver a Menu principal");
+			
+			// Recojo la opcion seleccionada por el usuario
+			sOpcion = cogerCadena();
+			
+			// Parseo el string a entero ya que el switch solo recoje enteros
+			iOpcion = utiles.StringAint(sOpcion);
+			
+			// Segun la opcion seleccionada se accedera a un metodo u otro
+			switch (iOpcion) {
+			case 1:
+				topSemanalMensual(videoclub,iOpcion);
+				break;
+			case 2:
+				topSemanalMensual(videoclub,iOpcion);
+				break;
+			case 5:
+				flag = false;
+				break;
+			default:
+				System.out.println("Introduzca una de las 3 opciones por favor");
+			}
+		}
 	}
 	
-	public static void topSemanal(Videoclub videoclub){
+	public static void topSemanalMensual(Videoclub videoclub, int iOpcion){
 		
-		Pelicula aPeliculas[] = new Pelicula[videoclub.getAlmacenes().size()];
-		ArrayList aListSemana = new ArrayList();
-		GregorianCalendar g = new GregorianCalendar();
-		GregorianCalendar fechaActual; 
-		GregorianCalendar fechaObjeto; 
+		Pelicula topSemanal[];
+		Pelicula topMensual[];
+		Pelicula pelicula[];
+		Pelicula top[];
+		int cont = 0;
+		int contTopSemanal = 0;
+		int contTopMensual = 0;
 		int diaActual;
 		int mesActual;
 		int anioActual;
 		int diaObjeto;
 		int mesObjeto;
 		int anioObjeto;
-		
-		//Obtengo los objetos Date para cada una de ellas
-		Date fec1 = (Date) fechaActual.getTime();
-		Date fec2 = (Date) gc1.getTime();
-		//Realizo la operación
-		long time = fec2.getTime() - fec1.getTime();
-		//Muestro el resultado en días
-		System.out.println("\n"+time/(3600*24*1000));
+		int dias;
 		
 		Calendar calendarioActual = new GregorianCalendar();
-		Calendar calendarioObjeto;
+		Calendar calendarioObjeto = Calendar.getInstance();
+		Date fecha = new Date();
 		
 		diaActual = calendarioActual.get(Calendar.DAY_OF_MONTH);
 		mesActual = calendarioActual.get(Calendar.MONTH + 1) ;
@@ -291,30 +348,107 @@ public class Videoclub {
 		
 		for(Object o:videoclub.getAlquileres()){
 			if(o instanceof Pelicula){
-				diaObjeto = ((Pelicula) o).getUltimoalq().getDay();
-				mesObjeto = ((Pelicula) o).getUltimoalq().getMonth();
-				anioObjeto = ((Pelicula) o).getUltimoalq());
-			
-				calendarioObjeto.setTime((Pelicula) o).getUltimoalq());
-				
-				fechaActual = new GregorianCalendar(anioActual, mesActual, diaActual);
-				fechaObjeto = new GregorianCalendar(, 11, 25);
+				cont++;
 			}
 		}
 		
-		Pelicula aux = new Pelicula();
+		topSemanal = new Pelicula[cont];
+		topMensual = new Pelicula[cont];
 		
-		for(int i=2;i<=aPeliculas.length;i++){
-			for(int j=0;j<aPeliculas.length-1;j++) {
-				if (aPeliculas[j].getNumalquiler()<aPeliculas[j+1].getNumalquiler()){
-					aux = aPeliculas[j];
-					aPeliculas[j] = aPeliculas[j+1];
-					aPeliculas[j+1] = aux;
+		for(Object o:videoclub.getAlquileres()){
+			if(o instanceof Pelicula){
+				//fecha = pelicula[i].getUltimoalq();
+				
+				fecha = (Date) ((Pelicula) o).getUltimoalq();
+				
+				calendarioObjeto.setTime(fecha);
+				
+				diaObjeto = calendarioObjeto.get(Calendar.DAY_OF_MONTH);
+				mesObjeto = calendarioObjeto.get(Calendar.MONTH + 1);
+				anioObjeto = calendarioObjeto.get(Calendar.YEAR);
+				
+				dias = DiferenciaDias(anioActual, mesActual, diaActual, anioObjeto, mesObjeto, diaObjeto);
+				
+				if (dias <= 7) {
+					topSemanal[contTopSemanal] = (Pelicula) o;
+					contTopSemanal++;
+				} 
+				else if(dias<=31) {
+					topSemanal[contTopMensual] = (Pelicula) o;
+					contTopMensual++;
 				}
 			}
 		}
+		
+		
+		if (iOpcion == 1) {
+			topSemanal = ordenacionTop(topSemanal);
+			mostrarTop(topSemanal);
+		} else if (iOpcion == 2) {
+			topMensual = ordenacionTop(topMensual);
+			mostrarTop(topMensual);
+		}
 	}
 	
+	
+	public static void mostrarTop(Pelicula[] top) {
+		for(int i = 0; i<top.length;i++){
+			System.out.println("\n" + top[i].getNumalquiler());
+		}
+	}
+
+	/**
+	 * Metodo que ordena un array de peliculas segun el nº de veces que haya sido alquilada
+	 * 
+	 * @param ordenacionTop
+	 * @return
+	 */
+	
+	public static Pelicula[] ordenacionTop(Pelicula[] ordenacionTop) {
+		Pelicula aux = new Pelicula();
+		
+		for(int i=2;i<=ordenacionTop.length;i++){
+			for(int j=0;j<ordenacionTop.length-1;j++) {
+				if (ordenacionTop[j].getNumalquiler()<ordenacionTop[j+1].getNumalquiler()){
+					aux = ordenacionTop[j];
+					ordenacionTop[j] = ordenacionTop[j+1];
+					ordenacionTop[j+1] = aux;
+				}
+			}
+		}
+		
+		return ordenacionTop;
+	}
+
+	/**
+	 * Metodo que te devuelve la diferencia de dias entre 2 fechas
+	 * 
+	 * @param anioActual
+	 * @param mesActual
+	 * @param diaActual
+	 * @param anioObjeto
+	 * @param mesObjeto
+	 * @param diaObjeto
+	 * @return
+	 */
+	
+	public static int DiferenciaDias(int anioActual, int mesActual, int diaActual, int anioObjeto, int mesObjeto, int diaObjeto){
+		GregorianCalendar fechaActual; 
+		GregorianCalendar fechaObjeto; 
+		int diasDiferencia;
+		
+		fechaActual = new GregorianCalendar(anioActual, mesActual, diaActual);
+		fechaObjeto = new GregorianCalendar(anioObjeto, mesObjeto, diaObjeto);
+		//Obtengo los objetos Date para cada una de ellas
+		Date fec1 = (Date) fechaActual.getTime();
+		Date fec2 = (Date) fechaObjeto.getTime();
+		//Realizo la operación
+		long time = fec2.getTime() - fec1.getTime();
+		//Guardo el resultado en días
+		diasDiferencia = (int) (time/(3600*24*1000));
+		
+		return diasDiferencia;
+	}
 	
 	/**
 	 * Metodo que presenta la pantalla de los idiomas
