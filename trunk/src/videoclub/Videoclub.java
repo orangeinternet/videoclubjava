@@ -195,7 +195,9 @@ public class Videoclub {
 	 */
 	public static void main(String[] args) {
 		Videoclub videoclub= new Videoclub();
-		
+		Utiles utiles = new Utiles();
+		utiles.conectar();
+		//Desde aquí tenemos conexión
 		Pelicula p1 = new Pelicula();
 		Pelicula p2 = new Pelicula();
 		Pelicula p3 = new Pelicula();
@@ -219,7 +221,6 @@ public class Videoclub {
 		videoclub.getAlquileres().add(p4);
 		videoclub.getAlquileres().add(p5);
 		
-		Utiles utiles = new Utiles();
 		Bienvenida(videoclub);
 		Menu(utiles,videoclub);
 	}
