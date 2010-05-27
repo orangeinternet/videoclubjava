@@ -1,4 +1,8 @@
 package videoclub;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,6 +16,13 @@ import java.util.Locale;
 
 public class Utiles {
 	
+
+	/**
+	 * Atributos
+	 */
+	private Connection conexion;
+	private Statement st;
+
 	/**
 	 * La clave de todo está en el método setLenient. Si se establece a false, como se hace en el método 
 	 * se fuerza a que la fecha "tenga sentido estricto",
@@ -71,6 +82,23 @@ public class Utiles {
 		} finally{
 			return opcion;
 		}
-		
+	}
+	public void conectar() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			conexion= DriverManager.getConnection("jdbc:mysql://localhost/videoclub","root","videoclub");
+			st= conexion.createStatement();
+		} catch (InstantiationException e) {
+			System.out.println(e.toString());
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			System.out.println(e.toString());
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println(e.toString());
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
 	}
 }
