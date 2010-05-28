@@ -170,10 +170,10 @@ public class Videoclub {
 			// Segun la opcion seleccionada se accedera a un metodo u otro
 			switch (iOpcion) {
 			case 1:
-				almacenarSocio(Utiles.rellenarSocio());
+				//almacenarSocio(Utiles.rellenarSocio());
 				break;
 			case 2:
-				almacenarPelicula(Utiles.rellenarPelicula());
+				//almacenarPelicula(Utiles.rellenarPelicula());
 				break;
 			case 3:
 				break;
@@ -238,7 +238,7 @@ public class Videoclub {
 			case 5:
 				System.out.println("Introduzca id de película");
 				sOpcion=Utiles.leerDatos();
-				alquilarPelicula(sOpcion, idSocio);
+				//alquilarPelicula(sOpcion, idSocio);
 			case 6:
 				flag = false;
 				break;
