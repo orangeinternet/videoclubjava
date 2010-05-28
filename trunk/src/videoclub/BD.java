@@ -1,8 +1,5 @@
 package videoclub;
 
-import Cliente;
-import Persistencia;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -42,21 +39,16 @@ public class BD {
 		 BD bd = new BD();
 		 
 		 try { 
-			 psSelect = con.prepareStatement("select * from alquiler"); 
+			 psSelect = con.prepareStatement("select p.numalquiler,p.titulo,p.genero,p.altabd,p.ultimoalq  from alquiler"); 
              ResultSet rs = psSelect.executeQuery(); 
              
              while (rs.next()) { 
-                 /*System.out.println("idCliente=" + rs.getInt(1) + " Nombre=" 
-                         + rs.getString(2) + " Edad=" + rs.getInt(3) 
-                         + " Direccion=" + rs.getString(4)
-                         + " Tlf=" + rs.getString(5));*/
-                 
-                 cliente.setIdCliente(rs.getInt(1));
-                 cliente.setNombre(rs.getString(2));
-                 cliente.setEdad(rs.getInt(3));
-                 cliente.setDireccion(rs.getString(4));
-                 cliente.setTlf(rs.getString(5));
-                 aList.add(cliente);
+                 pelicula.setNumalquiler(rs.getInt(1));
+                 pelicula.setTitulo(rs.getString(2));
+                 pelicula.setGenero(rs.getString(3));
+                 pelicula.setAltabd(rs.getDate(4));
+                 pelicula.setUltimoalq(rs.getDate(5));
+                 aList.add(pelicula);
              } 
          } catch (SQLException e) { 
              e.printStackTrace(); 
@@ -70,6 +62,6 @@ public class BD {
 			}
 		}
          
-         return aList;
+        return aList;
 	}
 }
