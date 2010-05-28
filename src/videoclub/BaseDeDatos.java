@@ -37,7 +37,7 @@ public class BaseDeDatos {
 	
 	public ArrayList devuelvePeliculas(){
 		 PreparedStatement psSelect = null;
-		 Pelicula pelicula = new Pelicula();
+		 Pelicula pelicula;
 		 ArrayList aList = new ArrayList();
 		 BaseDeDatos bd = new BaseDeDatos();
 		 
@@ -45,8 +45,9 @@ public class BaseDeDatos {
 			 psSelect = con.prepareStatement("select p.numalquiler,p.titulo,p.genero,p.fechaAltaBD,p.fechaUltimoAlq from peliculas p"); 
              ResultSet rs = psSelect.executeQuery(); 
              
-             while (rs.next()) { 
-                 pelicula.setNumAlquiler(rs.getInt(1));
+             while (rs.next()) {
+            	 pelicula = new Pelicula();
+            	 pelicula.setNumAlquiler(rs.getInt(1));
                  pelicula.setTitulo(rs.getString(2));
                  pelicula.setGenero(rs.getString(3));
                  pelicula.setFechaAltaBD(rs.getDate(4));
@@ -132,11 +133,11 @@ public class BaseDeDatos {
 				topSemanal[contTopSemanal] = (Pelicula) o;
 				contTopSemanal++;
 			} 
-			else if(diasTop<=31) {
-				topSemanal[contTopMensual] = (Pelicula) o;
+			if(diasTop<=31) {
+				topMensual[contTopMensual] = (Pelicula) o;
 				contTopMensual++;
 			}
-			else if(diasNovedad<=31){
+			if(diasNovedad<=31){
 				novedades.add((Pelicula) o);
 			}
 		}
@@ -160,7 +161,10 @@ public class BaseDeDatos {
 	
 	public void mostrarTop(Pelicula[] top) {
 		for(int i = 0; i<top.length;i++){
-			System.out.println("\n" + top[i].getNumAlquiler());
+			System.out.println("\n Nº de veces alquiladas: " + top[i].getNumAlquiler());
+			System.out.println(" Titulo: " + top[i].getTitulo());
+			System.out.println(" Genero: " + top[i].getGenero());
+			System.out.println(" Ultimo Alquiler: " + top[i].getFechaUltimoAlq());
 		}
 	}
 
