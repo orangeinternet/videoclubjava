@@ -17,101 +17,53 @@ import java.util.*;
  */
 
 public class Pelicula {
-
-	private int idpeli = 0;
-	private int numalquiler = 0;
+	
+	private int numAlquiler = 0;
 	private String titulo = "";
 	private String genero = "";
-	private Date altabd;
-	private Date ultimoalq;
+	private Date fechaAltaBD;
+	private Date fechaUltimoAlq;
 
-	/**
-	 * 
-	 *  devolvera el id del objeto película valor int**/
-	
-	public int getIdpeli() {
-		return idpeli;
+
+	private int idPeli = 0;
+	public int getIdPeli() {
+		return idPeli;
 	}
-
-	/** 
-	 * asignará el Id de la película  int**/
-	
-	public void setIdpeli(int idpeli) {
-		this.idpeli = idpeli;
+	public void setIdPeli(int idPeli) {
+		this.idPeli = idPeli;
 	}
-
-	/**
-	 *  devolverá el número de alquiler de la película alquilada **/
-	
-	public int getNumalquiler() {
-		return numalquiler;
+	public int getNumAlquiler() {
+		return numAlquiler;
 	}
-
-	/**
-	 *  asignará el valor int del alquiler**/
-	
-	public void setNumalquiler(int numalquiler) {
-		this.numalquiler = numalquiler;
+	public void setNumAlquiler(int numAlquiler) {
+		this.numAlquiler = numAlquiler;
 	}
-
-	/**
-	 *  devolverá el título de la película**/
-	
 	public String getTitulo() {
 		return titulo;
 	}
-	/**
-	 *  asignará el título como valor String**/
-	
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-
-	/**
-	 *  devolverá valores ya cargados en un arraylist género**/
-	
 	public String getGenero() {
 		return genero;
 	}
-
-	/**
-	 * asignará el del objeto al arraylist género **/
-	
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
-
-	/**
-	 *  Se devolverá la fecha con la que se ha dado de alta el titulo o la copia 
-	 * del mismo en nuestra base de datos con un tipo Date**/
-	
-	public Date getAltabd() {
-		return altabd;
+	public Date getFechaAltaBD() {
+		return fechaAltaBD;
 	}
-
-	/**
-	 *  Asignará la fecha con la que se ha dado de alta el tíulo o
-	 * la copia del mismo en nuestra base de datos**/
-	 
-	
-	public void setAltabd(Date altabd) {
-		this.altabd = altabd;
+	public void setFechaAltaBD(Date fechaAltaBD) {
+		this.fechaAltaBD = fechaAltaBD;
 	}
-
-	/** 
-	 * 
-	 * Devolverá la fecha del último alquiler del objeto película**/
-	
-	public Date getUltimoalq() {
-		return ultimoalq;
+	public Date getFechaUltimoAlq() {
+		return fechaUltimoAlq;
 	}
-
-	/** 
-	 * 
-	 * Asignará la fecha del último alquiler del objeo película**/
-	
-	public void setUltimoalq(Date ultimoalq) {
-		this.ultimoalq = ultimoalq;
+	public void setFechaUltimoAlq(Date fechaUltimoAlq) {
+		this.fechaUltimoAlq = fechaUltimoAlq;
 	}
-
+	
 }
+
+	
+	
