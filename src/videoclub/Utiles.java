@@ -80,7 +80,7 @@ public class Utiles {
 			return opcion;
 		}
 	}
-	public String leerDatos(){
+	public static String leerDatos(){
 		String dato = "";
 		
 		try {
