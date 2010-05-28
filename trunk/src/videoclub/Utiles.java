@@ -97,4 +97,39 @@ public class Utiles {
 		String datos= dato;
 		return datos;
 	}
+	
+	/**
+	 * Metodo que asigna valores a los atributos del objeto socios
+	 */
+	 
+	public Socio rellenarSocio(){
+	
+	Socio p = new Socio();
+	String nombre = p.getNombre();
+	String apellido = p.getApellido();
+	double saldo = p.getSaldo();
+	int socio = p.getIdsocio();
+	
+	return p;
+	}
+	
+	/**
+	 * Metodo que asigna valores a los atributos del objeto pelicula
+	 */
+	 
+	public Pelicula rellenarPelicula(){
+	
+	Pelicula i = new Pelicula();
+		int idpeli = i.getIdpeli();
+	 int numalquiler = i.getNumalquiler();
+	String titulo = i.getTitulo();
+	 String genero = i.getGenero();
+	Date altabd=i.getAltabd();
+	 Date ultimoalq=i.getUltimoalq();
+	
+	return i;
+	}
+	
+	
+	
 }
