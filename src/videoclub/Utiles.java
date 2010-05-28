@@ -1,4 +1,7 @@
 package videoclub;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -77,5 +80,21 @@ public class Utiles {
 			return opcion;
 		}
 	}
-
+	public String leerDatos(){
+		String dato = "";
+		
+		try {
+			//Obtencion del objeto Reader
+			InputStreamReader conv = new InputStreamReader (System.in);
+			//Obtencion del BufferedReader
+			BufferedReader entrada = new BufferedReader (conv);
+			dato = entrada.readLine();
+			
+		}catch (IOException e) 
+		{
+			System.out.println("Error");
+		}
+		String datos= dato;
+		return datos;
+	}
 }
