@@ -35,14 +35,14 @@ public class BaseDeDatos {
 		}
 	}
 	
-	public ArrayList devuelveAlquileres(){
+	public ArrayList devuelvePeliculas(){
 		 PreparedStatement psSelect = null;
 		 Pelicula pelicula = new Pelicula();
 		 ArrayList aList = new ArrayList();
 		 BaseDeDatos bd = new BaseDeDatos();
 		 
 		 try { 
-			 psSelect = con.prepareStatement("select p.numalquiler,p.titulo,p.genero,p.fechaAltaBD,p.fechaUltimaAlq from alquileres a,peliculas p where p.idpeli=a.idpeli "); 
+			 psSelect = con.prepareStatement("select p.numalquiler,p.titulo,p.genero,p.fechaAltaBD,p.fechaUltimoAlq from peliculas p"); 
              ResultSet rs = psSelect.executeQuery(); 
              
              while (rs.next()) { 
@@ -54,7 +54,7 @@ public class BaseDeDatos {
                  aList.add(pelicula);
              } 
          } catch (SQLException e) { 
-             e.printStackTrace(); 
+             System.out.println(e.getMessage()); 
          } finally{
 			if(psSelect != null) {
 				try {
@@ -100,7 +100,7 @@ public class BaseDeDatos {
 		mesActual = calendarioActual.get(Calendar.MONTH + 1) ;
 		anioActual = calendarioActual.get(Calendar.YEAR) ;
 		
-		pelicula = baseDeDatos.devuelveAlquileres();
+		pelicula = baseDeDatos.devuelvePeliculas();
 		
 		topSemanal = new Pelicula[pelicula.size()];
 		topMensual = new Pelicula[pelicula.size()];
