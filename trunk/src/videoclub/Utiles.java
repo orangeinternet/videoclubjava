@@ -15,13 +15,7 @@ import java.util.Locale;
  */
 
 public class Utiles {
-	
 
-	/**
-	 * Atributos
-	 */
-	private Connection conexion;
-	private Statement st;
 
 	/**
 	 * La clave de todo está en el método setLenient. Si se establece a false, como se hace en el método 
@@ -54,7 +48,7 @@ public class Utiles {
 	 * @return Date
 	 */
 	
-	public Date StringAdate(String fecha) {
+	public static Date StringAdate(String fecha) {
 		SimpleDateFormat formato= new SimpleDateFormat("dd-MM-yyyy");
 		Date d = null;
 		try {
@@ -72,7 +66,7 @@ public class Utiles {
 	 * @param texto
 	 */
 	
-	public int StringAint(String texto){
+	public static int StringAint(String texto){
 		int opcion = 0; 
 		try{
 			opcion = Integer.parseInt(texto);
@@ -83,22 +77,5 @@ public class Utiles {
 			return opcion;
 		}
 	}
-	public void conectar() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conexion= DriverManager.getConnection("jdbc:mysql://localhost/videoclub","root","videoclub");
-			st= conexion.createStatement();
-		} catch (InstantiationException e) {
-			System.out.println(e.toString());
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			System.out.println(e.toString());
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println(e.toString());
-			e.printStackTrace();
-		} catch (SQLException e) {
-			System.out.println(e.toString());
-		}
-	}
+
 }
