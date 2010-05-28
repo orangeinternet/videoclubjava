@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 
 public class BaseDeDatos {
-	static String bd = "videoclub"; 
-	static String login = "root"; 
-	static String password = "videoclub"; 
-	static String url = "jdbc:mysql://localhost/"+bd; 
+	static String bd = "clama23_video_grupo02"; 
+	static String login = "grupo02"; 
+	static String password = "123456"; 
+	static String url = "jdbc:mysql://clapinsa.com/"+bd; 
 	static Connection con;
 	
 	
@@ -39,7 +39,7 @@ public class BaseDeDatos {
 		 BaseDeDatos bd = new BaseDeDatos();
 		 
 		 try { 
-			 psSelect = con.prepareStatement("select p.numalquiler,p.titulo,p.genero,p.altabd,p.ultimoalq  from alquiler"); 
+			 psSelect = con.prepareStatement("select p.numalquiler,p.titulo,p.genero,p.altabd,p.ultimoalq from alquiler a,pelicula p where p.idpeli=a.idpeli "); 
              ResultSet rs = psSelect.executeQuery(); 
              
              while (rs.next()) { 
