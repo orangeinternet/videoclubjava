@@ -154,8 +154,16 @@ public class BaseDeDatos {
 	}
 	
 	public void mostrarNovedades(ArrayList novedades){
-		for(Object o:novedades){
-			//Muestro las novedades
+		
+		if(novedades.size() == 0) {
+			System.out.println("En este momento no hay novedades");
+		} else {
+			for(Object o:novedades){
+				System.out.println("\n Nº de veces alquiladas: " + ((Pelicula) o).getNumAlquiler());
+				System.out.println(" Titulo: " + ((Pelicula) o).getTitulo());
+				System.out.println(" Genero: " + ((Pelicula) o).getGenero());
+				System.out.println(" Ultimo Alquiler: " + ((Pelicula) o).getFechaUltimoAlq());
+			}
 		}
 	}
 	
@@ -195,7 +203,7 @@ public class BaseDeDatos {
 		Date fec1 = (Date) fechaActual.getTime();
 		Date fec2 = (Date) fechaObjeto.getTime();
 		//Realizo la operación
-		long time = fec2.getTime() - fec1.getTime();
+		long time = fec1.getTime() - fec2.getTime();
 		//Guardo el resultado en días
 		diasDiferencia = (int) (time/(3600*24*1000));
 		
@@ -246,7 +254,6 @@ public class BaseDeDatos {
 		for(Object o:peliculas){
 			// Muestro las pelis
 		}
-		
 	}
 	
 	
