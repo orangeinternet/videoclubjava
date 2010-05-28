@@ -14,7 +14,8 @@ public class Videoclub {
 	
 	private int gastos;
 	private int ingresos;
-
+	
+	
 	/**
 	 * Atributos de la clase Videoclub
 	 * Contiene la cadena que representa el idioma
@@ -97,7 +98,6 @@ public class Videoclub {
 		boolean flag = true;
 		String sOpcion;
 		int iOpcion;
-		int idSocio=0;
 		
 		/* Ojo: Las operaciones se pueden llevar a cabo todas las veces que 
 		 		el usuario desee, hasta que no presione la opcion 3. Salir*/
@@ -124,7 +124,7 @@ public class Videoclub {
 			case 2:
 				System.out.println("Introduzca id de película");
 				sOpcion=Utiles.leerDatos();
-				devolverPelicula(sOpcion, idSocio);
+				devolverPelicula(sOpcion);
 				break;
 			case 3:
 				flag = false;
@@ -213,21 +213,23 @@ public class Videoclub {
 			// Segun la opcion seleccionada se accedera a un metodo u otro
 			switch (iOpcion) {
 			case 1:
-				datos.getTopSemanal();
+				datos.topSemanalMensualNovedades(iOpcion);
 				break;
 			case 2:
-				datos.getTopMensual();
+				datos.topSemanalMensualNovedades(iOpcion);
 				break;
 			case 3:
-				datos.getNovedades();
+				datos.topSemanalMensualNovedades(iOpcion);
+				break;
 			case 4:
 				System.out.println("Introduzca la búsqueda");
 				sOpcion=Utiles.leerDatos();
-				datos.getBusqueda(sOpcion);
+				datos.busquedaPelicula(sOpcion);
+				break;
 			case 5:
 				System.out.println("Introduzca id de película");
 				sOpcion=Utiles.leerDatos();
-				alquilarPelicula(sOpcion, idSocio);
+				alquilarPelicula(sOpcion);
 			case 6:
 				flag = false;
 				break;
