@@ -39,7 +39,7 @@ public class BaseDeDatos {
 		 BaseDeDatos bd = new BaseDeDatos();
 		 
 		 try { 
-			 psSelect = con.prepareStatement("select p.numalquiler,p.titulo,p.genero,p.altabd,p.ultimoalq from alquiler a,pelicula p where p.idpeli=a.idpeli "); 
+			 psSelect = con.prepareStatement("select p.numalquiler,p.titulo,p.genero,p.altabd,p.ultimoalq from alquileres a,peliculas p where p.idpeli=a.idpeli "); 
              ResultSet rs = psSelect.executeQuery(); 
              
              while (rs.next()) { 
