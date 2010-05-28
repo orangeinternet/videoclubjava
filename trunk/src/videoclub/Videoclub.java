@@ -98,6 +98,13 @@ public class Videoclub {
 		boolean flag = true;
 		String sOpcion;
 		int iOpcion;
+		int idSocio;
+		System.out.println("Por favor, introduzca el usuario:");
+		idSocio= Utiles.leerInt();
+		if(idSocio==0) {
+			System.out.println("Error introduciendo parámetros");
+		}else {
+			System.out.println("Bienvenido socio nº "+idSocio);
 		
 		/* Ojo: Las operaciones se pueden llevar a cabo todas las veces que 
 		 		el usuario desee, hasta que no presione la opcion 3. Salir*/
@@ -119,26 +126,27 @@ public class Videoclub {
 			// Segun la opcion seleccionada se accedera a un metodo u otro
 			switch (iOpcion) {
 			case 1:
-				alquilar(videoclub, datos);
+				alquilar(videoclub, datos, idSocio);
 				break;
 			case 2:
 				System.out.println("Introduzca id de película");
 				sOpcion=Utiles.leerDatos();
-				devolverPelicula(sOpcion);
+				//devolverPelicula(sOpcion, idSocio);
 				break;
 			case 3:
 				flag = false;
 				break;
 			case 4:
-				menuAdmin(videoclub, datos);
+				menuAdmin(videoclub, datos, idSocio);
 			default:
 				System.out.println("Introduzca una de las 3 opciones por favor");
 			}
 		}
+		}
 		
 	}
 	
-	private static void menuAdmin(Videoclub videoclub, BaseDeDatos datos) {
+	private static void menuAdmin(Videoclub videoclub, BaseDeDatos datos, int idSocio) {
 		boolean flag = true;
 		String sOpcion;
 		int iOpcion;		
@@ -184,9 +192,10 @@ public class Videoclub {
 	/**
 	 * Metodo que nos permite alquilar una pelicula
 	 * @param videoclub
+	 * @param idSocio 
 	 */
 	
-	public static void alquilar(Videoclub videoclub, BaseDeDatos datos){
+	public static void alquilar(Videoclub videoclub, BaseDeDatos datos, int idSocio){
 		boolean flag = true;
 		String sOpcion;
 		int iOpcion;
@@ -229,7 +238,7 @@ public class Videoclub {
 			case 5:
 				System.out.println("Introduzca id de película");
 				sOpcion=Utiles.leerDatos();
-				alquilarPelicula(sOpcion);
+				alquilarPelicula(sOpcion, idSocio);
 			case 6:
 				flag = false;
 				break;
