@@ -46,11 +46,11 @@ public class BaseDeDatos {
              ResultSet rs = psSelect.executeQuery(); 
              
              while (rs.next()) { 
-                 pelicula.setNumalquiler(rs.getInt(1));
+                 pelicula.setNumAlquiler(rs.getInt(1));
                  pelicula.setTitulo(rs.getString(2));
                  pelicula.setGenero(rs.getString(3));
-                 pelicula.setAltabd(rs.getDate(4));
-                 pelicula.setUltimoalq(rs.getDate(5));
+                 pelicula.setFechaAltaBD(rs.getDate(4));
+                 pelicula.setFechaUltimoAlq(rs.getDate(5));
                  aList.add(pelicula);
              } 
          } catch (SQLException e) { 
@@ -106,7 +106,7 @@ public class BaseDeDatos {
 		topMensual = new Pelicula[pelicula.size()];
 		
 		for(Object o:pelicula){
-			fechaTop = (Date) ((Pelicula) o).getUltimoalq();
+			fechaTop = (Date) ((Pelicula) o).getFechaUltimoAlq();
 				
 			calendarioObjeto.setTime(fechaTop);
 			
@@ -118,7 +118,7 @@ public class BaseDeDatos {
 			
 			/******************************************************/
 			
-			fechaNovedad = (Date) ((Pelicula) o).getAltabd();
+			fechaNovedad = (Date) ((Pelicula) o).getFechaAltaBD();
 			
 			calendarioObjeto.setTime(fechaNovedad);
 			
@@ -160,7 +160,7 @@ public class BaseDeDatos {
 	
 	public void mostrarTop(Pelicula[] top) {
 		for(int i = 0; i<top.length;i++){
-			System.out.println("\n" + top[i].getNumalquiler());
+			System.out.println("\n" + top[i].getNumAlquiler());
 		}
 	}
 
@@ -169,7 +169,7 @@ public class BaseDeDatos {
 		
 		for(int i=2;i<=ordenacionTop.length;i++){
 			for(int j=0;j<ordenacionTop.length-1;j++) {
-				if (ordenacionTop[j].getNumalquiler()<ordenacionTop[j+1].getNumalquiler()){
+				if (ordenacionTop[j].getNumAlquiler()<ordenacionTop[j+1].getNumAlquiler()){
 					aux = ordenacionTop[j];
 					ordenacionTop[j] = ordenacionTop[j+1];
 					ordenacionTop[j+1] = aux;
@@ -211,12 +211,12 @@ public class BaseDeDatos {
 			ResultSet rs = psSelect.executeQuery(); 
             
             while (rs.next()) { 
-            	pelicula.setIdpeli(rs.getInt(1));
-                pelicula.setNumalquiler(rs.getInt(2));
+            	pelicula.setIdPeli(rs.getInt(1));
+                pelicula.setNumAlquiler(rs.getInt(2));
                 pelicula.setTitulo(rs.getString(3));
                 pelicula.setGenero(rs.getString(4));
-                pelicula.setAltabd(rs.getDate(5));
-                pelicula.setUltimoalq(rs.getDate(6));
+                pelicula.setFechaAltaBD(rs.getDate(5));
+                pelicula.setFechaUltimoAlq(rs.getDate(6));
                 aList.add(pelicula);
             } 
         } catch (SQLException e) { 
