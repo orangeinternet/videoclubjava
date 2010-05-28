@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 /**
@@ -98,6 +99,36 @@ public class Utiles {
 		return datos;
 
 	}
+	/**
+	 * Metodo que te devuelve la diferencia de dias entre 2 fechas
+	 * 
+	 * @param anioActual
+	 * @param mesActual
+	 * @param diaActual
+	 * @param anioObjeto
+	 * @param mesObjeto
+	 * @param diaObjeto
+	 * @return
+	 */
+	
+	public static int DiferenciaDias(int anioActual, int mesActual, int diaActual, int anioObjeto, int mesObjeto, int diaObjeto){
+		GregorianCalendar fechaActual; 
+		GregorianCalendar fechaObjeto; 
+		int diasDiferencia;
+		
+		fechaActual = new GregorianCalendar(anioActual, mesActual, diaActual);
+		fechaObjeto = new GregorianCalendar(anioObjeto, mesObjeto, diaObjeto);
+		//Obtengo los objetos Date para cada una de ellas
+		Date fec1 = (Date) fechaActual.getTime();
+		Date fec2 = (Date) fechaObjeto.getTime();
+		//Realizo la operación
+		long time = fec2.getTime() - fec1.getTime();
+		//Guardo el resultado en días
+		diasDiferencia = (int) (time/(3600*24*1000));
+		
+		return diasDiferencia;
+	}
+
 
 	/**
 	 * Metodo que asigna valores a los atributos del objeto socios
@@ -166,6 +197,8 @@ public class Utiles {
 
 		} catch (IOException e) {
 			System.out.println("Error");
+		} catch (NumberFormatException e) {
+			System.out.println(e.toString());
 		}
 		
 		return dato;
