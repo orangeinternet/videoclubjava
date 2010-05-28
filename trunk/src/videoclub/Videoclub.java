@@ -97,6 +97,7 @@ public class Videoclub {
 		boolean flag = true;
 		String sOpcion;
 		int iOpcion;
+		int idSocio=0;
 		
 		/* Ojo: Las operaciones se pueden llevar a cabo todas las veces que 
 		 		el usuario desee, hasta que no presione la opcion 3. Salir*/
@@ -121,9 +122,9 @@ public class Videoclub {
 				alquilar(videoclub, datos);
 				break;
 			case 2:
-				System.out.println("Introduzca película");
+				System.out.println("Introduzca id de película");
 				sOpcion=Utiles.leerDatos();
-				devolver(sOpcion, socio);
+				devolverPelicula(sOpcion, idSocio);
 				break;
 			case 3:
 				flag = false;
@@ -161,12 +162,10 @@ public class Videoclub {
 			// Segun la opcion seleccionada se accedera a un metodo u otro
 			switch (iOpcion) {
 			case 1:
-				Socio socio= new Socio();
-				socio= Utiles.rellenarSocio();
+				almacenarSocio(Utiles.rellenarSocio());
 				break;
 			case 2:
-				Pelicula pelicula= new Pelicula();
-				pelicula= Utiles.rellenarPelicula();
+				almacenarPelicula(Utiles.rellenarPelicula());
 				break;
 			case 3:
 				break;
@@ -202,7 +201,8 @@ public class Videoclub {
 			System.out.println("2. TopMensual");
 			System.out.println("3. Novedades");
 			System.out.println("4. Busqueda de Películas");
-			System.out.println("5. Volver a Menu principal");
+			System.out.println("5. Alquilar Pélicula");
+			System.out.println("6. Volver a Menu principal");
 			
 			// Recojo la opcion seleccionada por el usuario
 			sOpcion = Utiles.leerDatos();
@@ -213,16 +213,22 @@ public class Videoclub {
 			// Segun la opcion seleccionada se accedera a un metodo u otro
 			switch (iOpcion) {
 			case 1:
-				resultados= datos.getTopSemanal();
+				datos.getTopSemanal();
 				break;
 			case 2:
-				resultados= datos.getTopMensual();
+				datos.getTopMensual();
 				break;
 			case 3:
-				resultados= datos.getNovedades();
+				datos.getNovedades();
 			case 4:
-				resultados= datos.getBusqueda();
+				System.out.println("Introduzca la búsqueda");
+				sOpcion=Utiles.leerDatos();
+				datos.getBusqueda(sOpcion);
 			case 5:
+				System.out.println("Introduzca id de película");
+				sOpcion=Utiles.leerDatos();
+				alquilarPelicula(sOpcion, idSocio);
+			case 6:
 				flag = false;
 				break;
 			default:
