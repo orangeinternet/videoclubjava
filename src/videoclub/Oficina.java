@@ -10,59 +10,64 @@ public class Oficina {
 	/**
 	 * atributos de la clase Oficina
 	 */
-	private int telefono;
+	private String ciudad;
 	private String direccion;
-	private String responsable;
+	private String telefono;
 
-	// creamos los setters and getters
 	/**
-	 * get y set del atributo telefono.
+	 * llamamos al metodo toString.
 	 */
-	public int getTelefono() {
-		return telefono;
+	public String toString() {
+		return ("La Clase Oficina: " + ciudad + direccion + telefono);
+
 	}
 
-	public void setTelefono(int telefono) {
-		this.telefono = telefono;
-	}
+
 	/**
-	 * get y set del atributo responsable.
-	 * @return
+	 * @return the ciudad
 	 */
-	public String getResponsable() {
-		return responsable;
+	public String getCiudad() {
+		return ciudad;
 	}
 
-	public void setResponsable(String responsable) {
-		this.responsable = responsable;
-	}
+
 	/**
-	 * get y set del atributo direccion.
-	 * @return
+	 * @param ciudad the ciudad to set
+	 */
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+
+	/**
+	 * @return the direccion
 	 */
 	public String getDireccion() {
 		return direccion;
 	}
 
+
+	/**
+	 * @param direccion the direccion to set
+	 */
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
 
-	// el constructor Oficina
-	/**
-	 * para construir un nuevo objeto de Oficina
-	 */
-	public Oficina() {
 
+	/**
+	 * @return the telefono
+	 */
+	public String getTelefono() {
+		return telefono;
 	}
 
-	// un metodo toString que nos devuelve los traibutos de la clase
-	/**
-	 * llamamos al metodo toString.
-	 */
-	public String toString() {
-		return ("La Clase Oficina: " + responsable + direccion + telefono);
 
+	/**
+	 * @param telefono the telefono to set
+	 */
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
 }
