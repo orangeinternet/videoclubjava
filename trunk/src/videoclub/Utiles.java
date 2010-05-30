@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -134,7 +135,7 @@ public class Utiles {
 	 * Metodo que asigna valores a los atributos del objeto socios
 	 */
 
-	public Socio rellenarSocio() {
+	public static Socio rellenarSocio() {
 		Socio p = new Socio();
 
 		System.out.println("Introduzca el nombre: ");
@@ -154,7 +155,7 @@ public class Utiles {
 	 * Metodo que asigna valores a los atributos del objeto pelicula
 	 */
 
-	public Pelicula rellenarPelicula() {
+	public static Pelicula rellenarPelicula() {
 
 		Pelicula i = new Pelicula();
 		System.out.println("Introduzca el ID: ");
@@ -163,7 +164,11 @@ public class Utiles {
 		i.setTitulo(leerDatos());
 		System.out.println("Introduzca el género: ");
 		i.setGenero(leerDatos());
-		i.setFechaAltaBD(new Date());
+		//Recojo la fecha y hora actual
+		java.util.Date utilDate = new Date();
+		//Lo convierto al tipo java.sql.Date que usan las bases de datos
+		java.sql.Date date = new java.sql.Date(utilDate.getTime());
+		i.setFechaAltaBD(date);
 		
 
 		return i;
@@ -202,6 +207,11 @@ public class Utiles {
 		}
 		
 		return dato;
+	}
+
+	public static Oficina rellenarOficina() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

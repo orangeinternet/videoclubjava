@@ -1,5 +1,6 @@
 package videoclub;
-
+import java.sql.*;
+import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,15 +13,18 @@ import java.util.GregorianCalendar;
 
 
 public class BaseDeDatos {
-	static String bd = "clama23_video_grupo02"; 
-	static String login = "grupo02"; 
-	static String password = "123456"; 
-	static String url = "jdbc:mysql://clapinsa.com/"+bd; 
-	static Connection con;
+	private String bd; 
+	private String login; 
+	private String password; 
+	private String url; 
+	private Connection con;
 	
 	
-	BaseDeDatos(){
-		con = null;
+	public BaseDeDatos(){
+		bd = "clama23_video_grupo02"; 
+		login = "grupo02"; 
+		password = "123456"; 
+		url = "jdbc:mysql://clapinsa.com/"+bd; 
 		 try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			con = DriverManager.getConnection(url,login,password);
@@ -256,5 +260,71 @@ public class BaseDeDatos {
 		}
 	}
 	
+	/**
+	 * Almacena una nueva película en base de datos
+	 * @param p
+	 */
+	public void almacenarPelicula(Pelicula p){
+		try {
+			java.sql.Statement st= con.createStatement();
+			System.out.println(st.executeUpdate("INSERT Into peliculas (numAlquiler, titulo, genero, fechaAltaBD) Values ("+p.getNumAlquiler()+", '"+p.getTitulo()+"','"+p.getGenero()+"','"+p.getFechaAltaBD()+"')"));
+		} catch (SQLException e) {
+			System.out.println("e.toString()");
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Almacena un nuevo socio en base de datos
+	 * @param s
+	 */
+	public void almacenarSocio(Socio s){
+		try {
+			java.sql.Statement st= con.createStatement();
+			System.out.println(st.executeUpdate("INSERT Into socios (nombre, apellido, saldo) Values ('"+s.getNombre()+"', '"+s.getApellido()+"',"+s.getSaldo()+")"));
+		} catch (SQLException e) {
+			System.out.println("e.toString()");
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Un socio devuelve una película
+	 * @param idPelicula
+	 * @param idSocio
+	 */
+	public void devolverPelicula(int idPelicula, int idSocio){
+		
+	}
+	
+	/**
+	 * Un socio alquila una pelicula
+	 * @param idPelicula
+	 * @param idSocio
+	 */
+	public void alquilarPelicula(int idPelicula, int idSocio)
+	{
+		
+	}
+
+	public void almacenarOficina(Oficina o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mostrarSocios() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mostrarPeliculas() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mostrarOficinas() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

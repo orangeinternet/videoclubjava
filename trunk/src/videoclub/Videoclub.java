@@ -82,9 +82,11 @@ public class Videoclub {
 		 * y establece la conexión
 		 */
 		BaseDeDatos datos= new BaseDeDatos();
-
-		Bienvenida(videoclub);
-		Menu(videoclub, datos);
+		/*
+		 * Inicio del programa por consola
+		 */
+		videoclub.Bienvenida();
+		videoclub.Menu(datos);
 	}
 	
 	/**
@@ -94,7 +96,7 @@ public class Videoclub {
 	 * @param utiles,videoclub
 	 */
 	
-	public static void Menu(Videoclub videoclub, BaseDeDatos datos){
+	public void Menu(BaseDeDatos datos){
 		boolean flag = true;
 		String sOpcion;
 		int iOpcion;
@@ -126,18 +128,20 @@ public class Videoclub {
 			// Segun la opcion seleccionada se accedera a un metodo u otro
 			switch (iOpcion) {
 			case 1:
-				alquilar(videoclub, datos, idSocio);
+				alquilar(datos, idSocio);
 				break;
 			case 2:
 				System.out.println("Introduzca id de película");
 				sOpcion=Utiles.leerDatos();
-				//devolverPelicula(sOpcion, idSocio);
+				int idPelicula= Integer.parseInt(sOpcion);
+				//DEVOLVER PELICULA
+				datos.devolverPelicula(idPelicula, idSocio);
 				break;
 			case 3:
 				flag = false;
 				break;
 			case 4:
-				menuAdmin(videoclub, datos, idSocio);
+				menuAdmin(datos, idSocio);
 			default:
 				System.out.println("Introduzca una de las 3 opciones por favor");
 			}
@@ -146,7 +150,7 @@ public class Videoclub {
 		
 	}
 	
-	private static void menuAdmin(Videoclub videoclub, BaseDeDatos datos, int idSocio) {
+	private void menuAdmin(BaseDeDatos datos, int idSocio) {
 		boolean flag = true;
 		String sOpcion;
 		int iOpcion;		
@@ -157,9 +161,11 @@ public class Videoclub {
 			System.out.println("Seleccione una opcion: ");
 			System.out.println("1. Nuevo Socio");
 			System.out.println("2. Nueva Película");
-			System.out.println("3. --");
-			System.out.println("4. --");
-			System.out.println("5. Volver a Menu principal");
+			System.out.println("3. Nueva Oficina");
+			System.out.println("4. Mostrar Socios");
+			System.out.println("5. Mostrar Películas");
+			System.out.println("6. Mostrar Oficinas");
+			System.out.println("7. Volver a Menu principal");
 			
 			// Recojo la opcion seleccionada por el usuario
 			sOpcion = Utiles.leerDatos();
@@ -170,16 +176,29 @@ public class Videoclub {
 			// Segun la opcion seleccionada se accedera a un metodo u otro
 			switch (iOpcion) {
 			case 1:
-				//almacenarSocio(Utiles.rellenarSocio());
+				//AÑADIR SOCIO
+				datos.almacenarSocio(Utiles.rellenarSocio());
 				break;
 			case 2:
-				//almacenarPelicula(Utiles.rellenarPelicula());
+				//AÑADIR PELICULA
+				datos.almacenarPelicula(Utiles.rellenarPelicula());
 				break;
 			case 3:
-				break;
+				//AÑADIR OFICINA
+				datos.almacenarOficina(Utiles.rellenarOficina());
 			case 4:
+				//MUESTRA TODOS LOS SOCIOS
+				datos.mostrarSocios();
 				break;
 			case 5:
+				//MUESTRA TODAS LAS PELÍCULAS
+				datos.mostrarPeliculas();
+				break;
+			case 6:
+				//MUESTRA TODAS LAS OFICINAS
+				datos.mostrarOficinas();
+				break;
+			case 7:
 				flag = false;
 				break;
 			default:
@@ -195,7 +214,7 @@ public class Videoclub {
 	 * @param idSocio 
 	 */
 	
-	public static void alquilar(Videoclub videoclub, BaseDeDatos datos, int idSocio){
+	public void alquilar(BaseDeDatos datos, int idSocio){
 		boolean flag = true;
 		String sOpcion;
 		int iOpcion;
@@ -210,8 +229,9 @@ public class Videoclub {
 			System.out.println("2. TopMensual");
 			System.out.println("3. Novedades");
 			System.out.println("4. Busqueda de Películas");
-			System.out.println("5. Alquilar Pélicula");
-			System.out.println("6. Volver a Menu principal");
+			System.out.println("5. Mostrar Películas");
+			System.out.println("6. Alquilar Película");
+			System.out.println("7. Volver a Menu principal");
 			
 			// Recojo la opcion seleccionada por el usuario
 			sOpcion = Utiles.leerDatos();
@@ -222,24 +242,35 @@ public class Videoclub {
 			// Segun la opcion seleccionada se accedera a un metodo u otro
 			switch (iOpcion) {
 			case 1:
+				//MOSTRAR TOP SEMANAL
 				datos.topSemanalMensualNovedades(iOpcion);
 				break;
 			case 2:
+				//MOSTRAR TOP MENSUAL
 				datos.topSemanalMensualNovedades(iOpcion);
 				break;
 			case 3:
+				//MOSTRAR NOVEDADES
 				datos.topSemanalMensualNovedades(iOpcion);
 				break;
 			case 4:
 				System.out.println("Introduzca la búsqueda");
 				sOpcion=Utiles.leerDatos();
+				//MOSTRAR RESULTADOS BUSQUEDA DE PELICULA
 				datos.busquedaPelicula(sOpcion);
 				break;
 			case 5:
+				//MUESTRA TODAS LAS PELÍCULAS
+				datos.mostrarPeliculas();
+				break;
+			case 6:
 				System.out.println("Introduzca id de película");
 				sOpcion=Utiles.leerDatos();
-				//alquilarPelicula(sOpcion, idSocio);
-			case 6:
+				int idPelicula=Integer.parseInt(sOpcion);
+				//AÑADIR ALQUILER PELICULA
+				datos.alquilarPelicula(idPelicula, idSocio);
+				break;
+			case 7:
 				flag = false;
 				break;
 			default:
@@ -255,7 +286,7 @@ public class Videoclub {
 	 * @param videoclub
 	 */
 	
-	public static void Bienvenida(Videoclub videoclub){
+	public void Bienvenida(){
 		
 		System.out.println("------------Bienvenido al Videoclub TOPE------------");
 		System.out.println("Seleccione el idioma: ");
@@ -265,7 +296,7 @@ public class Videoclub {
 		System.out.println("4. Italiano");
 		System.out.println("5. Alemán");
 		String aux= Utiles.leerDatos();
-		videoclub.idioma= aux;
+		idioma= aux;
 		
 	}
 }

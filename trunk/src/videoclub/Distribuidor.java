@@ -8,28 +8,47 @@ import java.util.ArrayList;
 	 */
 
 public class Distribuidor {
-	// Declaracion de atributos
-	private ArrayList<Pelicula> arrayList;
+	/**
+	 * Nombre del districuidor
+	 */
+	private String nombre;
+	private int peliculas;
 
-	// Constructor
-	public ArrayList<Pelicula> getArrayList() {
-		return arrayList;
-	}
-
-	// Getters y Setters de la clase Alquiler
-	
-	public void setArrayList(ArrayList<Pelicula> arrayList) {
-		this.arrayList = arrayList;
-	}
-	
 	/**
 	 * Metodo toString sobre-escrito de la clase object
 	 * que devuelve una cadena
 	 * 
 	 * return @String
 	 */
-	
 	public String toString(){
-		return null;
+		return ("La Clase Distribuidor: " + nombre + peliculas);
+	}
+
+	/**
+	 * @return the nombre
+	 */
+	public String getNombre() {
+		return nombre;
+	}
+
+	/**
+	 * @param nombre the nombre to set
+	 */
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	/**
+	 * @return the peliculas
+	 */
+	public int getPeliculas() {
+		return peliculas;
+	}
+
+	/**
+	 * @param peliculas the peliculas to set
+	 */
+	public void setPeliculas(int peliculas) {
+		this.peliculas = peliculas;
 	}
 }
