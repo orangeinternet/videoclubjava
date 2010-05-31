@@ -268,6 +268,7 @@ public class BaseDeDatos {
 		try {
 			java.sql.Statement st= con.createStatement();
 			System.out.println(st.executeUpdate("INSERT Into peliculas (numAlquiler, titulo, genero, fechaAltaBD) Values ("+p.getNumAlquiler()+", '"+p.getTitulo()+"','"+p.getGenero()+"','"+p.getFechaAltaBD()+"')"));
+			insertarGasto(3);
 		} catch (SQLException e) {
 			System.out.println("e.toString()");
 			e.printStackTrace();
@@ -307,6 +308,27 @@ public class BaseDeDatos {
 		
 	}
 
+	public void insertarGasto(double gasto) {
+		try {
+			java.sql.Date date = new java.sql.Date(new Date().getTime());
+			java.sql.Statement st= con.createStatement();
+			System.out.println(st.executeUpdate("INSERT Into movimientos (ingreso, gasto, fecha) Values ("+0+", "+gasto+",'"+date+"')"));
+		} catch (SQLException e) {
+			System.out.println("e.toString()");
+			e.printStackTrace();
+		}
+	}
+	public void insertarIngreso(double ingreso) {
+		try {
+			java.sql.Date date = new java.sql.Date(new Date().getTime());
+			java.sql.Statement st= con.createStatement();
+			System.out.println(st.executeUpdate("INSERT Into movimientos (ingreso, gasto, fecha) Values ("+ingreso+", "+0+",'"+date+"')"));
+		} catch (SQLException e) {
+			System.out.println("e.toString()");
+			e.printStackTrace();
+		}
+	}
+	
 	public void almacenarOficina(Oficina o) {
 		// TODO Auto-generated method stub
 		
