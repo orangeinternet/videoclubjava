@@ -210,8 +210,20 @@ public class Utiles {
 	}
 
 	public static Oficina rellenarOficina() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Oficina o = new Oficina();
+		System.out.println("Introduzca la ciudad: ");
+		o.setCiudad(leerDatos());
+		System.out.println("Introduzca la direccion: ");
+		o.setDireccion(leerDatos());
+		System.out.println("Introduzca el telefono: ");
+		o.setTelefono(leerDatos());
+		//Recojo la fecha y hora actual
+		java.util.Date utilDate = new Date();
+		//Lo convierto al tipo java.sql.Date que usan las bases de datos
+		java.sql.Date date = new java.sql.Date(utilDate.getTime());
+		o.setFechaDeAlta(date);
+		return o;
 	}
 
 }
