@@ -395,5 +395,15 @@ public class BaseDeDatos {
 				System.out.println(e.toString());                                                                                            
 			}
 	}
+
+	public void borrarPelicula(int id) {
+		try {
+			java.sql.Statement st= con.createStatement();
+			System.out.println(st.executeUpdate("DELETE From peliculas where Id='"+id+"'"));
+		} catch (SQLException e) {
+			System.out.println("e.toString()");
+			e.printStackTrace();
+		}
+	}
 	
 }
