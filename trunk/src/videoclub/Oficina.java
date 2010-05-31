@@ -1,5 +1,7 @@
 package videoclub;
 
+import java.util.*;
+
 
 public class Oficina {
 
@@ -13,6 +15,30 @@ public class Oficina {
 	private String ciudad;
 	private String direccion;
 	private String telefono;
+	private Date fechaDeAlta;
+	
+	/**
+	 * constructor 
+	 * @return
+	 */
+	public Oficina(){
+		
+	}
+	/**
+	 * devuelve la fecha de alta
+	 */
+
+	public Date getFechaDeAlta() {
+		return fechaDeAlta;
+	}
+
+	/**
+	 * llama a la fecha de alta
+	 */
+	public void setFechaDeAlta(Date fechaDeAlta) {
+		this.fechaDeAlta = fechaDeAlta;
+	}
+
 
 	/**
 	 * llamamos al metodo toString.
