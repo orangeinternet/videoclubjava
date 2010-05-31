@@ -358,7 +358,7 @@ public class BaseDeDatos {
 			ResultSet datos= st.executeQuery("SELECT * FROM peliculas");
 			System.out.println("----Tabla películas recogida de la BASE DE DATOS----");
 			while(datos.next()) {
-				System.out.println("--> "+datos.getString("titulo")+"  "+datos.getString("genero")+" <--");
+				System.out.println("--> "+datos.getInt("Id")+" "+datos.getString("titulo")+"  "+datos.getString("genero")+" <--");
 			}
 		} catch (SQLException e) {
 				System.out.println(e.toString());                                                                                            
