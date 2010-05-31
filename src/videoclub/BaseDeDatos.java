@@ -329,8 +329,14 @@ public class BaseDeDatos {
 	}
 	
 	public void almacenarOficina(Oficina o) {
-		// TODO Auto-generated method stub
 		
+			try {
+				java.sql.Statement st= con.createStatement();
+				System.out.println(st.executeUpdate("INSERT Into oficinas (ciudad,direccion,telefono) Values ('"+o.getCiudad()+"','"+o.getDireccion()+"','"+o.getTelefono()+"')"));
+			} catch (SQLException e) {
+				System.out.println("e.toString()");
+				e.printStackTrace();
+			}
 	}
 
 	public void mostrarSocios() {
@@ -353,7 +359,19 @@ public class BaseDeDatos {
 	}
 
 	public void mostrarOficinas() {
-		// TODO Auto-generated method stub
+		
+		try {
+			java.sql.Statement st= con.createStatement();
+			java.sql.ResultSet datos = st.executeQuery("Select * From oficinas");
+			System.out.println("----Tabla Oficinas Recogida de la Base de Datos----");
+				while(datos.next()){
+				System.out.println("--> "+datos.getString("ciudad")+" "+datos.getString("direccion")+" "+datos.getNString("telefono")+" <--");
+			}
+		} catch (SQLException e) {
+			System.out.println("e.toString()");
+			e.printStackTrace();
+		}
+		
 		
 	}
 
