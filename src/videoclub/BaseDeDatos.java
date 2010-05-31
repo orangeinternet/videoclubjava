@@ -326,5 +326,10 @@ public class BaseDeDatos {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void mostrarMovimientos() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
