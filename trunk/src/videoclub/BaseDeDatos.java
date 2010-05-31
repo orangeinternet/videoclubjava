@@ -376,8 +376,16 @@ public class BaseDeDatos {
 	}
 
 	public void mostrarMovimientos() {
-		// TODO Auto-generated method stub
-		
+		try {
+			Statement st= con.createStatement();
+			ResultSet datos= st.executeQuery("SELECT * FROM movimientos");
+			System.out.println("----Tabla películas recogida de la BASE DE DATOS----");
+			while(datos.next()) {
+				System.out.println("--> "+datos.getDouble("ingreso")+"  "+datos.getDouble("gasto")+" "+datos.getDate("fecha")+"<--");
+			}
+		} catch (SQLException e) {
+				System.out.println(e.toString());                                                                                            
+			}
 	}
 	
 }
