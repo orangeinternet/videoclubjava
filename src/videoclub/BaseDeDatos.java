@@ -1,10 +1,5 @@
 package videoclub;
 import java.sql.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,112 +40,101 @@ public class BaseDeDatos {
 		 BaseDeDatos bd = new BaseDeDatos();
 		 
 		 try { 
-			 psSelect = con.prepareStatement("select p.numalquiler,p.titulo,p.genero,p.fechaAltaBD,p.fechaUltimoAlq from peliculas p"); 
-             ResultSet rs = psSelect.executeQuery(); 
-             
-             while (rs.next()) {
-            	 pelicula = new Pelicula();
-            	 pelicula.setNumAlquiler(rs.getInt(1));
-                 pelicula.setTitulo(rs.getString(2));
-                 pelicula.setGenero(rs.getString(3));
-                 pelicula.setFechaAltaBD(rs.getDate(4));
-                 pelicula.setFechaUltimoAlq(rs.getDate(5));
-                 aList.add(pelicula);
-             } 
-         } catch (SQLException e) { 
-             System.out.println(e.getMessage()); 
-         } finally{
+			 //con = bd.conexionBD();
+			 psSelect = con.prepareStatement("select p.numalquiler,p.titulo,p.genero,p.fechaAltaBD,p.fechaUltimoAlq, datediff(now(),p.fechaUltimoAlq) <= 7 as topSemanalMensual," +
+					                         "datediff(now(),p.fechaAltaBd) <= 7 as novedades from peliculas p order by p.numAlquiler desc;"); 
+            ResultSet rs = psSelect.executeQuery(); 
+            
+            while (rs.next()) {
+           	 pelicula = new Pelicula();
+           	 pelicula.setNumAlquiler(rs.getInt(1));
+                pelicula.setTitulo(rs.getString(2));
+                pelicula.setGenero(rs.getString(3));
+                pelicula.setFechaAltaBD(rs.getDate(4));
+                pelicula.setFechaUltimoAlq(rs.getDate(5));
+                pelicula.setDiffTopSemMen(rs.getInt(6));
+                pelicula.setDiffNovedades(rs.getInt(7));
+                aList.add(pelicula);
+            } 
+        } catch (SQLException e) { 
+            System.out.println(e.getMessage()); 
+        }/* finally{
 			if(psSelect != null) {
 				try {
-					con.close();
+					//con.close();
 				} catch (SQLException e) {
 					System.out.println("No se pudo cerrar correctamente la conexion");
 				}
 			}
-		}
-         
-        return aList;
+		}*/
+        
+       return aList;
+	}
+	
+	public ArrayList devuelvePeliculasOrd(){
+		 PreparedStatement psSelect = null;
+		 Pelicula pelicula;
+		 ArrayList aList = new ArrayList();
+		 BaseDeDatos bd = new BaseDeDatos();
+		 
+		 try { 
+			// con = bd.conexionBD();
+			 psSelect = con.prepareStatement("select p.numalquiler,p.titulo,p.genero,p.fechaAltaBD,p.fechaUltimoAlq " +
+					                         "from peliculas p order by p.titulo asc"); 
+           ResultSet rs = psSelect.executeQuery(); 
+           
+           while (rs.next()) {
+          	 pelicula = new Pelicula();
+          	 pelicula.setNumAlquiler(rs.getInt(1));
+               pelicula.setTitulo(rs.getString(2));
+               pelicula.setGenero(rs.getString(3));
+               pelicula.setFechaAltaBD(rs.getDate(4));
+               pelicula.setFechaUltimoAlq(rs.getDate(5));
+               aList.add(pelicula);
+           } 
+       } catch (SQLException e) { 
+           System.out.println(e.getMessage()); 
+       } /*finally{
+			if(psSelect != null) {
+				try {
+					//con.close();
+				} catch (SQLException e) {
+					System.out.println("No se pudo cerrar correctamente la conexion");
+				}
+			}
+		}*/
+       
+      return aList;
 	}
 	
 	public void topSemanalMensualNovedades(int iOpcion){
 		
-		Pelicula topSemanal[];
-		Pelicula topMensual[];
-		int contNovedades = 0;
-		int contTopSemanal = 0;
-		int contTopMensual = 0;
-		int diaActual;
-		int mesActual;
-		int anioActual;
-		int diaObjeto;
-		int mesObjeto;
-		int anioObjeto;
-		int diaNovedad;
-		int mesNovedad;
-		int anioNovedad;
-		int diasTop;
-		int diasNovedad;
-		Calendar calendarioActual = new GregorianCalendar();
-		ArrayList pelicula = new ArrayList();
+		ArrayList peliculas = new ArrayList();
+		ArrayList topSemanal = new ArrayList();
+		ArrayList topMensual = new ArrayList();
 		ArrayList novedades = new ArrayList();
-		Date fechaTop = new Date();
-		Date fechaNovedad = new Date();
 		BaseDeDatos baseDeDatos = new BaseDeDatos();
+		Pelicula p;
+		peliculas = baseDeDatos.devuelvePeliculas();
 		
-		
-		Calendar calendarioObjeto = Calendar.getInstance();
-		
-		diaActual = calendarioActual.get(Calendar.DAY_OF_MONTH);
-		mesActual = calendarioActual.get(Calendar.MONTH + 1) ;
-		anioActual = calendarioActual.get(Calendar.YEAR) ;
-		
-		pelicula = baseDeDatos.devuelvePeliculas();
-		
-		topSemanal = new Pelicula[pelicula.size()];
-		topMensual = new Pelicula[pelicula.size()];
-		
-		for(Object o:pelicula){
-			fechaTop = (Date) ((Pelicula) o).getFechaUltimoAlq();
-				
-			calendarioObjeto.setTime(fechaTop);
+		for(Object o:peliculas){
+			p = new Pelicula();
+			p = (Pelicula) o;
 			
-			diaObjeto = calendarioObjeto.get(Calendar.DAY_OF_MONTH);
-			mesObjeto = calendarioObjeto.get(Calendar.MONTH + 1);
-			anioObjeto = calendarioObjeto.get(Calendar.YEAR);
-				
-			diasTop = DiferenciaDias(anioActual, mesActual, diaActual, anioObjeto, mesObjeto, diaObjeto);
+			if (p.getDiffTopSemMen() == 1) {
+				topSemanal.add(p);
+			} else 
+				topMensual.add(p);
 			
-			/******************************************************/
-			
-			fechaNovedad = (Date) ((Pelicula) o).getFechaAltaBD();
-			
-			calendarioObjeto.setTime(fechaNovedad);
-			
-			diaNovedad = calendarioObjeto.get(Calendar.DAY_OF_MONTH);
-			mesNovedad = calendarioObjeto.get(Calendar.MONTH + 1);
-			anioNovedad = calendarioObjeto.get(Calendar.YEAR);
-			
-			diasNovedad = DiferenciaDias(anioActual, mesActual, diaActual, anioNovedad, mesNovedad, diaNovedad);
-			
-			if (diasTop <= 7) {
-				topSemanal[contTopSemanal] = (Pelicula) o;
-				contTopSemanal++;
-			} 
-			if(diasTop<=31) {
-				topMensual[contTopMensual] = (Pelicula) o;
-				contTopMensual++;
-			}
-			if(diasNovedad<=31){
+			if(p.getDiffNovedades()==1){
 				novedades.add((Pelicula) o);
 			}
 		}
 		
 		if (iOpcion == 1) {
-			topSemanal = ordenacionTop(topSemanal);
-			mostrarTop(topSemanal);
+			mostrarTop(topSemanal,"topSemanal");
 		} else if (iOpcion == 2) {
-			topMensual = ordenacionTop(topMensual);
-			mostrarTop(topMensual);
+			mostrarTop(topMensual,"topMensual");
 		} else if (iOpcion == 3){
 			mostrarNovedades(novedades);
 		}
@@ -170,12 +154,18 @@ public class BaseDeDatos {
 		}
 	}
 	
-	public void mostrarTop(Pelicula[] top) {
-		for(int i = 0; i<top.length;i++){
-			System.out.println("\n Nº de veces alquiladas: " + top[i].getNumAlquiler());
-			System.out.println(" Titulo: " + top[i].getTitulo());
-			System.out.println(" Genero: " + top[i].getGenero());
-			System.out.println(" Ultimo Alquiler: " + top[i].getFechaUltimoAlq());
+	public void mostrarTop(ArrayList top,String lista) {
+		Pelicula p;
+		if(top.size() == 0) {
+			System.out.println("En estos momentos no hay peliculas en el " + lista);
+		} else {
+			for(Object o:top){
+				p = (Pelicula) o;
+				System.out.println("\n Nº de veces alquiladas: " + p.getNumAlquiler());
+				System.out.println(" Titulo: " + p.getTitulo());
+				System.out.println(" Genero: " + p.getGenero());
+				System.out.println(" Ultimo Alquiler: " + p.getFechaUltimoAlq());
+			}
 		}
 	}
 
@@ -214,18 +204,20 @@ public class BaseDeDatos {
 	}
 	
 	public void busquedaPelicula(String cadena){
-		PreparedStatement psSelect = null;
+		Statement psSelect = null;
 		Pelicula pelicula = new Pelicula();
 		ArrayList aList = new ArrayList();
 		BaseDeDatos bd = new BaseDeDatos();
-		 
-		try { 
-			psSelect = con.prepareStatement("select p.idPeli,p.numAlquiler,p.titulo,p.genero,p.fechaAltaBD,fechaUltimaAlq from peliculas p where p.titulo LIKE ('?') "); 
-			psSelect.setString(1, cadena);
+		
+		try {
+			//con = bd.conexionBD();
 			
-			ResultSet rs = psSelect.executeQuery(); 
+			psSelect = con.createStatement(); 
+			
+			ResultSet rs = psSelect.executeQuery("select p.idPeli,p.numAlquiler,p.titulo,p.genero,p.fechaAltaBD,fechaUltimoAlq from peliculas p where p.titulo LIKE '%"+cadena+"%'"); 
             
             while (rs.next()) { 
+            	pelicula = new Pelicula();
             	pelicula.setIdPeli(rs.getInt(1));
                 pelicula.setNumAlquiler(rs.getInt(2));
                 pelicula.setTitulo(rs.getString(3));
@@ -235,16 +227,16 @@ public class BaseDeDatos {
                 aList.add(pelicula);
             } 
         } catch (SQLException e) { 
-            e.printStackTrace(); 
-        } finally{
+            System.out.println("Se ha producido un error: "+ e.getMessage());
+        } /*finally{
 			if(psSelect != null) {
 				try {
-					con.close();
+					//con.close();
 				} catch (SQLException e) {
 					System.out.println("No se pudo cerrar correctamente la conexion");
 				}
 			}
-		}
+		}*/
         
         if (aList.size() == 0) {
         	System.out.println("No se encontro ningun resultado");
@@ -254,8 +246,11 @@ public class BaseDeDatos {
 	}
 
 	public void mostrarPeliculas(ArrayList peliculas) {
+		Pelicula p;
 		for(Object o:peliculas){
-			// Muestro las pelis
+			p = (Pelicula) o;
+			System.out.println("\nTitulo: " + p.getTitulo());
+			System.out.println("Genero: " + p.getGenero());
 		}
 	}
 	
@@ -294,6 +289,33 @@ public class BaseDeDatos {
 	 * @param idSocio
 	 */
 	public void devolverPelicula(int idPelicula, int idSocio){
+		if (verificarPelicula(idPelicula)) {
+			eliminarAlquiler(idSocio,idPelicula);
+			insertarIngreso(0.60);
+		} else {
+			System.out.println("El identificador de la pelicula no existe");
+		}
+	}
+	
+	public void eliminarAlquiler(int idSocio,int idPelicula){
+		Statement ps = null;
+		
+		try { 
+			 ps = con.createStatement();
+             ps.executeUpdate("delete from alquileres where idPelicula="+idPelicula+" and idSocio="+idSocio); 
+          
+             System.out.println("Se ha devuelto la pelicula correctamente");
+         } catch (SQLException e) { 
+             System.out.println("Se ha producido un error al eliminar al cliente"); 
+         } /*finally{
+			if(ps != null) {
+				try {
+					//con.close();
+				} catch (SQLException e) {
+					System.out.println("No se pudo cerrar correctamente la conexion");
+				}
+			}
+		}*/
 		
 	}
 	
@@ -304,9 +326,82 @@ public class BaseDeDatos {
 	 */
 	public void alquilarPelicula(int idPelicula, int idSocio)
 	{
-		
+		if(verificarPelicula(idPelicula)){
+			insertarAlquiler(idPelicula, idSocio);
+			aumentarNumAlquiler(idPelicula);
+		} else {
+			System.out.println("El identificador de la pelicula no existe");
+		}
 	}
 
+	public void aumentarNumAlquiler(int idPelicula){
+		BaseDeDatos bd = new BaseDeDatos();
+		try {
+			Statement st = con.createStatement();
+			System.out.println(st.executeUpdate("UPDATE peliculas SET numAlquiler= numAlquiler + 1 WHERE nombre="+idPelicula));
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public boolean verificarPelicula(int idPelicula){
+		 Statement psSelect = null;
+		 Pelicula pelicula;
+		 ArrayList aList = new ArrayList();
+		 BaseDeDatos bd = new BaseDeDatos();
+		 boolean flag = false;
+		 
+		 try { 
+			//con = bd.conexionBD();
+			psSelect = con.createStatement(); 
+            ResultSet rs = psSelect.executeQuery("select * from peliculas where idPeli = "+idPelicula); 
+         
+           // psSelect.setInt(1, idPelicula);
+           
+            if (rs.next()) {
+            	flag = true;
+            } 
+       } catch (SQLException e) { 
+           System.out.println(e.getMessage()); 
+       }/* finally{
+			if(psSelect != null) {
+				try {
+					//con.close();
+				} catch (SQLException e) {
+					System.out.println("No se pudo cerrar correctamente la conexion");
+				}
+			}
+		}*/
+       
+      return flag;
+	}
+	
+	public void insertarAlquiler(int idPelicula, int idSocio){
+		
+		Statement psInsertar = null ;
+		BaseDeDatos bd = new BaseDeDatos(); 
+		//con = bd.conexionBD();
+		
+		try {
+			java.sql.Date date = new java.sql.Date(new Date().getTime());
+			
+			psInsertar = con.createStatement(); 
+			psInsertar.executeUpdate("INSERT Into alquileres (idPelicula,idSocio,fechaAlq) Values ("+idPelicula+","+idSocio+",'"+date+"')");
+			
+			System.out.println("Se ha alquilado la pelicula correctamente");
+		}catch (SQLException e) {
+			System.out.println("No se pudo alquilar la pelicula correctamente: " + e.getMessage());
+		}/*finally{
+			if(psInsertar != null) {
+				try {
+					//con.close();
+				} catch (SQLException e) {
+					System.out.println("No se pudo cerrar correctamente la conexion");
+				}
+			}
+		}*/
+	}
+	
 	public void insertarGasto(double gasto) {
 		try {
 			java.sql.Date date = new java.sql.Date(new Date().getTime());

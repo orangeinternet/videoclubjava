@@ -23,8 +23,21 @@ public class Pelicula {
 	private String genero = "";
 	private Date fechaAltaBD;
 	private Date fechaUltimoAlq;
+	private int diffTopSemMen;
+	private int diffNovedades;
 
-
+	public int getDiffTopSemMen() {
+		return diffTopSemMen;
+	}
+	public void setDiffTopSemMen(int diffTopSemMen) {
+		this.diffTopSemMen = diffTopSemMen;
+	}
+	public int getDiffNovedades() {
+		return diffNovedades;
+	}
+	public void setDiffNovedades(int diffNovedades) {
+		this.diffNovedades = diffNovedades;
+	}
 	private int idPeli = 0;
 	public int getIdPeli() {
 		return idPeli;
