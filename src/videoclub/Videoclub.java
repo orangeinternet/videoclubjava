@@ -10,11 +10,6 @@ import java.util.GregorianCalendar;
 import videoclub.Utiles;
 
 public class Videoclub {
-
-	
-	private int gastos;
-	private int ingresos;
-	
 	
 	/**
 	 * Atributos de la clase Videoclub
@@ -23,34 +18,7 @@ public class Videoclub {
 	 */
 	private String idioma;
 
-	
-	/**
-	 * @return los gastos
-	 */
-	public int getGastos() {
-		return gastos;
-	}
 
-	/**
-	 * @param los gastos
-	 */
-	public void setGastos(int gastos) {
-		this.gastos = gastos;
-	}
-
-	/**
-	 * @return los ingresos
-	 */
-	public int getIngresos() {
-		return ingresos;
-	}
-
-	/**
-	 * @param los ingresos
-	 */
-	public void setIngresos(int ingresos) {
-		this.ingresos = ingresos;
-	}
 	
 	/**
 	 * @return el idioma
