@@ -133,7 +133,8 @@ public class Videoclub {
 			System.out.println("5. Mostrar Películas");
 			System.out.println("6. Mostrar Oficinas");
 			System.out.println("7. Mostrar Movimientos");
-			System.out.println("8. Volver a Menu principal");
+			System.out.println("8. Borrar Película");
+			System.out.println("9. Volver a Menu principal");
 			
 			// Recojo la opcion seleccionada por el usuario
 			sOpcion = Utiles.leerDatos();
@@ -171,6 +172,11 @@ public class Videoclub {
 				datos.mostrarMovimientos();
 				break;
 			case 8:
+				//BORRA UNA PELÍCULA
+				System.out.println("Introduzca el ID de la película a borrar");
+				int id= Utiles.leerInt();
+				datos.borrarPelicula(id);
+			case 9:
 				flag = false;
 				break;
 			default:
