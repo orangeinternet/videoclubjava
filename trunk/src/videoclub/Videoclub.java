@@ -132,7 +132,8 @@ public class Videoclub {
 			System.out.println("4. Mostrar Socios");
 			System.out.println("5. Mostrar Películas");
 			System.out.println("6. Mostrar Oficinas");
-			System.out.println("7. Volver a Menu principal");
+			System.out.println("7. Mostrar Movimientos");
+			System.out.println("8. Volver a Menu principal");
 			
 			// Recojo la opcion seleccionada por el usuario
 			sOpcion = Utiles.leerDatos();
@@ -166,6 +167,10 @@ public class Videoclub {
 				datos.mostrarOficinas();
 				break;
 			case 7:
+				//MUESTRA TODOS LOS MOVIMIENTOS
+				datos.mostrarMovimientos();
+				break;
+			case 8:
 				flag = false;
 				break;
 			default:
