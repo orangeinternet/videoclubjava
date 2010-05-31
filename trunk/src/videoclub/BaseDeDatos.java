@@ -1,6 +1,5 @@
 package videoclub;
 import java.sql.*;
-import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -340,7 +339,16 @@ public class BaseDeDatos {
 	}
 
 	public void mostrarPeliculas() {
-		// TODO Auto-generated method stub
+		try {
+			Statement st= con.createStatement();
+			ResultSet datos= st.executeQuery("SELECT * FROM peliculas");
+			System.out.println("----Tabla películas recogida de la BASE DE DATOS----");
+			while(datos.next()) {
+				System.out.println("--> "+datos.getString("titulo")+"  "+datos.getString("genero")+" <--");
+			}
+		} catch (SQLException e) {
+				System.out.println(e.toString());                                                                                            
+			}
 		
 	}
 
