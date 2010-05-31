@@ -340,8 +340,16 @@ public class BaseDeDatos {
 	}
 
 	public void mostrarSocios() {
-		// TODO Auto-generated method stub
-		
+		try {
+			Statement st= con.createStatement();
+			ResultSet datos= st.executeQuery("SELECT * FROM socios");
+			System.out.println("----Tabla Socios recogida de la BASE DE DATOS----");
+			while(datos.next()) {
+				System.out.println("--> "+datos.getString("nombre")+"  "+datos.getString("apellido")+" "+datos.getDouble("saldo")+"<--");
+			}
+		} catch (SQLException e) {
+				System.out.println(e.toString());                                                                                            
+			}
 	}
 
 	public void mostrarPeliculas() {
