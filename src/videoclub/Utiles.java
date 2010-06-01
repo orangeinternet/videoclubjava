@@ -237,7 +237,7 @@ public class Utiles {
 		p.setNombre(leerDatos());
 		System.out.println("Introduzca el empresa: ");
 		p.setEmpresa(leerDatos());
-		System.out.println("Introduzca el saldo: ");
+		System.out.println("Introduzca el telefono: ");
 		p.setTelefono(leerDatos());
 		System.out.println("Introduzca el nivel de la relación (alto, medio, bajo) : ");
 		p.setNivelRelacion(leerDatos());
