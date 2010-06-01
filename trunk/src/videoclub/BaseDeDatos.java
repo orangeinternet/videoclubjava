@@ -440,7 +440,7 @@ public class BaseDeDatos {
 			ResultSet datos= st.executeQuery("SELECT * FROM socios");
 			System.out.println("----Tabla Socios recogida de la BASE DE DATOS----");
 			while(datos.next()) {
-				System.out.println("--> "+datos.getString("nombre")+"  "+datos.getString("apellido")+" "+datos.getDouble("saldo")+"<--");
+				System.out.println("--> "+datos.getInt("Id")+" "+datos.getString("nombre")+"  "+datos.getString("apellido")+" "+datos.getDouble("saldo")+"<--");
 			}
 		} catch (SQLException e) {
 				System.out.println(e.toString());                                                                                            
@@ -499,6 +499,19 @@ public class BaseDeDatos {
 			System.out.println("e.toString()");
 			e.printStackTrace();
 		}
+	}
+
+	public void mostrarAlquileres() {
+		try {
+			Statement st= con.createStatement();
+			ResultSet datos= st.executeQuery("SELECT * FROM alquileres");
+			System.out.println("----Tabla alquileres recogida de la BASE DE DATOS----");
+			while(datos.next()) {
+				System.out.println("--> "+datos.getInt("idPelicula")+"  "+datos.getInt("idSocio")+" "+datos.getDate("fechaAlq")+"<--");
+			}
+		} catch (SQLException e) {
+				System.out.println(e.toString());                                                                                            
+			}
 	}
 	
 }
