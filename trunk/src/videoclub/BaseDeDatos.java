@@ -513,5 +513,28 @@ public class BaseDeDatos {
 				System.out.println(e.toString());                                                                                            
 			}
 	}
+
+	public void mostrarDistribuidores() {
+		try {
+			Statement st= con.createStatement();
+			ResultSet datos= st.executeQuery("SELECT * FROM distribuidores");
+			System.out.println("----Tabla distribuidores recogida de la BASE DE DATOS----");
+			while(datos.next()) {
+				System.out.println("--> "+datos.getInt("Id")+"  "+datos.getString("nombre")+" "+datos.getString("empresa")+"  "+datos.getString("telefono")+" "+datos.getString("nivelRelacion")+"<--");
+			}
+		} catch (SQLException e) {
+				System.out.println(e.toString());                                                                                            
+			}
+	}
+
+	public void almacenarDistribuidor(Distribuidor d) {
+		try {
+			java.sql.Statement st= con.createStatement();
+			System.out.println(st.executeUpdate("INSERT Into distribuidores (ciudad,direccion,telefono) Values ('"+d.getNombre()+"','"+d.getEmpresa()+"','"+d.getTelefono()+"','"+d.getNivelRelacion()+"')"));
+		} catch (SQLException e) {
+			System.out.println("e.toString()");
+			e.printStackTrace();
+		}
+	}
 	
 }

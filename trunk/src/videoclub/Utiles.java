@@ -226,4 +226,22 @@ public class Utiles {
 		return o;
 	}
 
+	/**
+	 * Rellena un objeto distribuidor
+	 * @return
+	 */
+	public static Distribuidor rellenarDistribuidor() {
+		Distribuidor p = new Distribuidor();
+
+		System.out.println("Introduzca el nombre: ");
+		p.setNombre(leerDatos());
+		System.out.println("Introduzca el empresa: ");
+		p.setEmpresa(leerDatos());
+		System.out.println("Introduzca el saldo: ");
+		p.setTelefono(leerDatos());
+		System.out.println("Introduzca el nivel de la relación (alto, medio, bajo) : ");
+		p.setNivelRelacion(leerDatos());
+
+		return p;
+	}
 }

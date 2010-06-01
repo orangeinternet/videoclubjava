@@ -129,13 +129,15 @@ public class Videoclub {
 			System.out.println("1. Nuevo Socio");
 			System.out.println("2. Nueva Película");
 			System.out.println("3. Nueva Oficina");
-			System.out.println("4. Mostrar Socios");
-			System.out.println("5. Mostrar Películas");
-			System.out.println("6. Mostrar Oficinas");
-			System.out.println("7. Mostrar Movimientos");
-			System.out.println("8. Mostrar Alquileres");
-			System.out.println("9. Borrar Película");
-			System.out.println("10. Volver a Menu principal");
+			System.out.println("4. Nuevo Distribuidor");
+			System.out.println("5. Mostrar Socios");
+			System.out.println("6. Mostrar Películas");
+			System.out.println("7. Mostrar Oficinas");
+			System.out.println("8. Mostrar Movimientos");
+			System.out.println("9. Mostrar Alquileres");
+			System.out.println("10. Mostrar Distribuidores");
+			System.out.println("11. Borrar Película");
+			System.out.println("12. Volver a Menu principal");
 			
 			// Recojo la opcion seleccionada por el usuario
 			sOpcion = Utiles.leerDatos();
@@ -157,31 +159,39 @@ public class Videoclub {
 				//AÑADIR OFICINA
 				datos.almacenarOficina(Utiles.rellenarOficina());
 			case 4:
+				//AÑADIR DISTRIBUIDOR
+				datos.almacenarDistribuidor(Utiles.rellenarDistribuidor());
+				break;
+			case 5:
 				//MUESTRA TODOS LOS SOCIOS
 				datos.mostrarSocios();
 				break;
-			case 5:
+			case 6:
 				//MUESTRA TODAS LAS PELÍCULAS
 				datos.mostrarPeliculas();
 				break;
-			case 6:
+			case 7:
 				//MUESTRA TODAS LAS OFICINAS
 				datos.mostrarOficinas();
 				break;
-			case 7:
+			case 8:
 				//MUESTRA TODOS LOS MOVIMIENTOS
 				datos.mostrarMovimientos();
 				break;
-			case 8:
+			case 9:
 				//MUESTRA TODOS LOS ALQUILERES
 				datos.mostrarAlquileres();
 				break;
-			case 9:
+			case 10:
+				//MUESTRA TODOS LOS DISTRIBUIDORES
+				datos.mostrarDistribuidores();
+				break;
+			case 11:
 				//BORRA UNA PELÍCULA
 				System.out.println("Introduzca el ID de la película a borrar");
 				int id= Utiles.leerInt();
 				datos.borrarPelicula(id);
-			case 10:
+			case 12:
 				flag = false;
 				break;
 			default:
