@@ -186,24 +186,6 @@ public class BaseDeDatos {
 		return ordenacionTop;
 	}
 	
-	public int DiferenciaDias(int anioActual, int mesActual, int diaActual, int anioObjeto, int mesObjeto, int diaObjeto){
-		GregorianCalendar fechaActual; 
-		GregorianCalendar fechaObjeto; 
-		int diasDiferencia;
-		
-		fechaActual = new GregorianCalendar(anioActual, mesActual, diaActual);
-		fechaObjeto = new GregorianCalendar(anioObjeto, mesObjeto, diaObjeto);
-		//Obtengo los objetos Date para cada una de ellas
-		Date fec1 = (Date) fechaActual.getTime();
-		Date fec2 = (Date) fechaObjeto.getTime();
-		//Realizo la operación
-		long time = fec1.getTime() - fec2.getTime();
-		//Guardo el resultado en días
-		diasDiferencia = (int) (time/(3600*24*1000));
-		
-		return diasDiferencia;
-	}
-	
 	public void busquedaPelicula(String cadena){
 		Statement psSelect = null;
 		Pelicula pelicula = new Pelicula();
@@ -245,7 +227,27 @@ public class BaseDeDatos {
         	mostrarPeliculas(aList);
         }
 	}
-
+	
+	public int devuelveDias(int idPelicula){
+		Statement psSelect = null;
+		BaseDeDatos bd = new BaseDeDatos();
+		int dias = 0;
+		
+		try {
+			psSelect = con.createStatement(); 
+			
+			ResultSet rs = psSelect.executeQuery("select datediff(now(), p.fechaUlitmoAlq) as dias from peliculas p where p.idPeli="+idPelicula); 
+            
+            if (rs.next()) { 
+            	dias = rs.getInt(rs.getInt(1));
+            } 
+        } catch (SQLException e) { 
+            System.out.println("Se ha producido un error: "+ e.getMessage());
+        }
+        
+        return dias;
+    }
+	
 	public void mostrarPeliculas(ArrayList peliculas) {
 		Pelicula p;
 		for(Object o:peliculas){
@@ -290,13 +292,30 @@ public class BaseDeDatos {
 	 * @param idSocio
 	 */
 	public void devolverPelicula(int idPelicula, int idSocio){
+		int dias;
+		double diferencia;
 		if (verificarPelicula(idPelicula)) {
 			eliminarAlquiler(idSocio,idPelicula);
-			insertarIngreso(0.60);
+			dias = devuelveDias(idPelicula);
+			diferencia = 0.60*dias;
+			restarDiferencia(diferencia,idSocio);
+			
 		} else {
 			System.out.println("El identificador de la pelicula no existe");
 		}
 	}
+	
+	public void restarDiferencia(double diferencia,int idSocio){
+		try {
+			java.sql.Date date = new java.sql.Date(new Date().getTime());
+			Statement st = con.createStatement();
+			System.out.println(st.executeUpdate("UPDATE socios SET saldo= (saldo - "+diferencia+") where idSocio = "+idSocio));
+			insertarIngreso(diferencia);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 	
 	public void eliminarAlquiler(int idSocio,int idPelicula){
 		Statement ps = null;
@@ -532,7 +551,7 @@ public class BaseDeDatos {
 	public void almacenarDistribuidor(Distribuidor d) {
 		try {
 			java.sql.Statement st= con.createStatement();
-			System.out.println(st.executeUpdate("INSERT Into distribuidores (ciudad,direccion,telefono) Values ('"+d.getNombre()+"','"+d.getEmpresa()+"','"+d.getTelefono()+"','"+d.getNivelRelacion()+"')"));
+			System.out.println(st.executeUpdate("INSERT Into distribuidores (nombre,empresa,telefono,nivelRelacion) Values ('"+d.getNombre()+"','"+d.getEmpresa()+"','"+d.getTelefono()+"','"+d.getNivelRelacion()+"')"));
 		} catch (SQLException e) {
 			System.out.println("e.toString()");
 			e.printStackTrace();
