@@ -123,6 +123,7 @@ public class BaseDeDatos {
 			
 			if (p.getDiffTopSemMen() == 1) {
 				topSemanal.add(p);
+				topMensual.add(p);
 			} else 
 				topMensual.add(p);
 			
@@ -337,8 +338,9 @@ public class BaseDeDatos {
 	public void aumentarNumAlquiler(int idPelicula){
 		BaseDeDatos bd = new BaseDeDatos();
 		try {
+			java.sql.Date date = new java.sql.Date(new Date().getTime());
 			Statement st = con.createStatement();
-			System.out.println(st.executeUpdate("UPDATE peliculas SET numAlquiler= numAlquiler + 1 WHERE nombre="+idPelicula));
+			System.out.println(st.executeUpdate("UPDATE peliculas SET numAlquiler= numAlquiler + 1, fechaUltimoAlq='"+date+"' WHERE idPeli="+idPelicula));
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
