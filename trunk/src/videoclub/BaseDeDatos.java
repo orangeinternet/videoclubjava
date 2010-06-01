@@ -41,19 +41,19 @@ public class BaseDeDatos {
 		 
 		 try { 
 			 //con = bd.conexionBD();
-			 psSelect = con.prepareStatement("select p.numalquiler,p.titulo,p.genero,p.fechaAltaBD,p.fechaUltimoAlq, datediff(now(),p.fechaUltimoAlq) <= 7 as topSemanalMensual," +
-					                         "datediff(now(),p.fechaAltaBd) <= 7 as novedades from peliculas p order by p.numAlquiler desc;"); 
+			 psSelect = con.prepareStatement("select sum(p.numalquiler) as cantidad, p.numalquiler,p.titulo,p.genero,p.fechaAltaBD,p.fechaUltimoAlq, datediff(now(),p.fechaUltimoAlq) <= 7 as topSemanalMensual," +
+					                         "datediff(now(),p.fechaAltaBd) <= 7 as novedades from peliculas p group by p.titulo order by p.numAlquiler desc;"); 
             ResultSet rs = psSelect.executeQuery(); 
             
             while (rs.next()) {
            	 pelicula = new Pelicula();
            	 pelicula.setNumAlquiler(rs.getInt(1));
-                pelicula.setTitulo(rs.getString(2));
-                pelicula.setGenero(rs.getString(3));
-                pelicula.setFechaAltaBD(rs.getDate(4));
-                pelicula.setFechaUltimoAlq(rs.getDate(5));
-                pelicula.setDiffTopSemMen(rs.getInt(6));
-                pelicula.setDiffNovedades(rs.getInt(7));
+                pelicula.setTitulo(rs.getString(3));
+                pelicula.setGenero(rs.getString(4));
+                pelicula.setFechaAltaBD(rs.getDate(5));
+                pelicula.setFechaUltimoAlq(rs.getDate(6));
+                pelicula.setDiffTopSemMen(rs.getInt(7));
+                pelicula.setDiffNovedades(rs.getInt(8));
                 aList.add(pelicula);
             } 
         } catch (SQLException e) { 
