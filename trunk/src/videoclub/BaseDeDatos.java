@@ -236,7 +236,7 @@ public class BaseDeDatos {
 		try {
 			psSelect = con.createStatement(); 
 			
-			ResultSet rs = psSelect.executeQuery("select datediff(now(), p.fechaUlitmoAlq) as dias from peliculas p where p.idPeli="+idPelicula); 
+			ResultSet rs = psSelect.executeQuery("select datediff(now(), p.fechaUltimoAlq) as dias from peliculas p where p.idPeli="+idPelicula); 
             
             if (rs.next()) { 
             	dias = rs.getInt(rs.getInt(1));
