@@ -1,6 +1,7 @@
 package videoclub;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -49,6 +50,7 @@ public class Videoclub {
 		 * y establece la conexión
 		 */
 		BaseDeDatos datos= new BaseDeDatos();
+		
 		/*
 		 * Inicio del programa por consola
 		 */
@@ -106,6 +108,12 @@ public class Videoclub {
 				break;
 			case 3:
 				flag = false;
+				try {
+					datos.getConnection().close();
+				} catch (SQLException e) {
+					System.out.println(e.toString());
+					e.printStackTrace();
+				}
 				break;
 			case 4:
 				menuAdmin(datos, idSocio);
