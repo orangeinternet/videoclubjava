@@ -1,4 +1,5 @@
 package videoclub;
+import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -556,6 +557,14 @@ public class BaseDeDatos {
 			System.out.println("e.toString()");
 			e.printStackTrace();
 		}
+	}
+	/**
+	 * Get Connection
+	 * @return
+	 */
+	public Connection getConnection() {
+		// TODO Auto-generated method stub
+		return con;
 	}
 	
 }
