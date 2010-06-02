@@ -14,6 +14,9 @@ public class BaseDeDatos {
 	private String url; 
 	private Connection con;
 	
+	/**
+	 * Constructor para establecer la conexion
+	 */
 	
 	public BaseDeDatos(){
 		bd = "clama23_video_grupo02"; 
@@ -33,6 +36,11 @@ public class BaseDeDatos {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	/**
+	 * Metodo que devuelve todas las peliculas de la BD
+	 * @return
+	 */
 	
 	public ArrayList devuelvePeliculas(){
 		 PreparedStatement psSelect = null;
@@ -72,6 +80,11 @@ public class BaseDeDatos {
        return aList;
 	}
 	
+	/**
+	 * Metodo que te devuelve las peliculas ordenadas alfabeticamente
+	 * @return
+	 */
+	
 	public ArrayList devuelvePeliculasOrd(){
 		 PreparedStatement psSelect = null;
 		 Pelicula pelicula;
@@ -108,6 +121,11 @@ public class BaseDeDatos {
       return aList;
 	}
 	
+	/**
+	 * Metodo que recoje las ultimas novedades, top semana y top mensual
+	 * @param iOpcion
+	 */
+	
 	public void topSemanalMensualNovedades(int iOpcion){
 		
 		ArrayList peliculas = new ArrayList();
@@ -142,6 +160,11 @@ public class BaseDeDatos {
 		}
 	}
 	
+	/**
+	 * Metodo que muestra las novedades semanales
+	 * @param novedades
+	 */
+	
 	public void mostrarNovedades(ArrayList novedades){
 		
 		if(novedades.size() == 0) {
@@ -155,6 +178,12 @@ public class BaseDeDatos {
 			}
 		}
 	}
+	
+	/**
+	 * Metodo que muestra el Top Semanal de peliculas y el Top Mensual
+	 * @param top
+	 * @param lista
+	 */
 	
 	public void mostrarTop(ArrayList top,String lista) {
 		Pelicula p;
@@ -170,22 +199,11 @@ public class BaseDeDatos {
 			}
 		}
 	}
-
-	public Pelicula[] ordenacionTop(Pelicula[] ordenacionTop) {
-		Pelicula aux = new Pelicula();
-		
-		for(int i=2;i<=ordenacionTop.length;i++){
-			for(int j=0;j<ordenacionTop.length-1;j++) {
-				if (ordenacionTop[j].getNumAlquiler()<ordenacionTop[j+1].getNumAlquiler()){
-					aux = ordenacionTop[j];
-					ordenacionTop[j] = ordenacionTop[j+1];
-					ordenacionTop[j+1] = aux;
-				}
-			}
-		}
-		
-		return ordenacionTop;
-	}
+	
+	/**
+	 * Metodo que muestra una o varias peliculas
+	 * @param cadena
+	 */
 	
 	public void busquedaPelicula(String cadena){
 		Statement psSelect = null;
@@ -229,6 +247,12 @@ public class BaseDeDatos {
         }
 	}
 	
+	/**
+	 * Metodo que devuelve el numero de días entre la fecha actual y la fecha del ultimo alquiler
+	 * @param idPelicula
+	 * @return
+	 */
+	
 	public int devuelveDias(int idPelicula){
 		Statement psSelect = null;
 		BaseDeDatos bd = new BaseDeDatos();
@@ -248,6 +272,11 @@ public class BaseDeDatos {
         
         return dias;
     }
+	
+	/**
+	 * Metodo que muestra por pantalla todas las peliculas
+	 * @param peliculas
+	 */
 	
 	public void mostrarPeliculas(ArrayList peliculas) {
 		Pelicula p;
@@ -306,7 +335,12 @@ public class BaseDeDatos {
 		}
 	}
 	
-	
+	/**
+	 * Metodo que resta el saldo del cliente segun los dias que hayan transcurrido
+	 * 
+	 * @param diferencia
+	 * @param idSocio
+	 */
 	
 	public void restarDiferencia(double diferencia,int idSocio){
 		try {
@@ -319,6 +353,11 @@ public class BaseDeDatos {
 		}
 	}
 	
+	/**
+	 * Metodo que nos permite devolver una pelicula
+	 * @param idSocio
+	 * @param idPelicula
+	 */
 	
 	public void eliminarAlquiler(int idSocio,int idPelicula){
 		Statement ps = null;
@@ -357,6 +396,11 @@ public class BaseDeDatos {
 		}
 	}
 
+	/**
+	 * Metodo que aumenta el numero de alquileres para una pelicula
+	 * @param idPelicula
+	 */
+	
 	public void aumentarNumAlquiler(int idPelicula){
 		BaseDeDatos bd = new BaseDeDatos();
 		try {
@@ -367,6 +411,12 @@ public class BaseDeDatos {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	/**
+	 * Metodo que verifica si una pelicula está alquilada
+	 * @param idPelicula
+	 * @return
+	 */
 	
 	public boolean verificarAlquiler(int idPelicula){
 		 Statement psSelect = null;
@@ -400,6 +450,12 @@ public class BaseDeDatos {
      return flag;
 	}
 	
+	/**
+	 * 
+	 * @param idPelicula
+	 * @return
+	 */
+
 	
 	public boolean verificarPelicula(int idPelicula){
 		 Statement psSelect = null;
@@ -433,6 +489,12 @@ public class BaseDeDatos {
       return flag;
 	}
 	
+	/**
+	 * Metodo que nos permite insertar un alquiler
+	 * @param idPelicula
+	 * @param idSocio
+	 */
+	
 	public void insertarAlquiler(int idPelicula, int idSocio){
 		
 		Statement psInsertar = null ;
@@ -459,6 +521,11 @@ public class BaseDeDatos {
 		}*/
 	}
 	
+	/**
+	 * Metodo que inserta un gasto del cliente sobre nuestros movimientos
+	 * @param gasto
+	 */
+	
 	public void insertarGasto(double gasto) {
 		try {
 			java.sql.Date date = new java.sql.Date(new Date().getTime());
@@ -469,6 +536,12 @@ public class BaseDeDatos {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Metodo que inserta un ingreso sobre la tabla movimientos a la hora de devolver una pelicula
+	 * @param ingreso
+	 */
+	
 	public void insertarIngreso(double ingreso) {
 		try {
 			java.sql.Date date = new java.sql.Date(new Date().getTime());
@@ -480,6 +553,11 @@ public class BaseDeDatos {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param o
+	 */
+	
 	public void almacenarOficina(Oficina o) {
 		
 			try {
@@ -490,6 +568,10 @@ public class BaseDeDatos {
 				e.printStackTrace();
 			}
 	}
+	
+	/**
+	 * Metodo que muestra todos los socios que tenemos en BD
+	 */
 
 	public void mostrarSocios() {
 		try {
@@ -504,6 +586,10 @@ public class BaseDeDatos {
 			}
 	}
 
+	/**
+	 * Metodo que muestra todas las peliculas insertadas en BD
+	 */
+	
 	public void mostrarPeliculas() {
 		try {
 			Statement st= con.createStatement();
@@ -517,6 +603,10 @@ public class BaseDeDatos {
 			}
 		
 	}
+	
+	/**
+	 * Metodo que muestra todas las oficinas de nuestra BD
+	 */
 
 	public void mostrarOficinas() {
 		
@@ -534,6 +624,10 @@ public class BaseDeDatos {
 		
 		
 	}
+	
+	/**
+	 * Metodo que muestra los movimientos economicos de nuestro videoclub
+	 */
 
 	public void mostrarMovimientos() {
 		try {
@@ -548,6 +642,12 @@ public class BaseDeDatos {
 				System.out.println(e.toString());                                                                                            
 			}
 	}
+	
+	/**
+	 * Metodo que borra la pelicula de la BD
+	 * @param id
+	 */
+
 
 	public void borrarPelicula(int id) {
 		try {
@@ -559,6 +659,10 @@ public class BaseDeDatos {
 		}
 	}
 
+	/**
+	 * Metodo que muestra los alquileres de las peliculas
+	 */
+	
 	public void mostrarAlquileres() {
 		try {
 			Statement st= con.createStatement();
@@ -572,6 +676,10 @@ public class BaseDeDatos {
 			}
 	}
 
+	/**
+	 * Metodo que muestra todos los distribuidores de la BD
+	 */
+	
 	public void mostrarDistribuidores() {
 		try {
 			Statement st= con.createStatement();
@@ -585,6 +693,11 @@ public class BaseDeDatos {
 			}
 	}
 
+	/**
+	 * Metodo que inserta distribuidores de nuestra BD
+	 * @param d
+	 */
+	
 	public void almacenarDistribuidor(Distribuidor d) {
 		try {
 			java.sql.Statement st= con.createStatement();
