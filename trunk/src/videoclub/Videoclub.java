@@ -17,6 +17,7 @@ public class Videoclub {
 	 * de la interfaz
 	 */
 	private String idioma;
+	private String titulo;
 
 
 	
@@ -288,8 +289,7 @@ public class Videoclub {
 	 */
 	
 	public void Bienvenida(){
-		idioma="";
-		while (!idioma.equals("1")){
+		
 		System.out.println("------------Bienvenido al Videoclub TOPE------------");
 		System.out.println("Seleccione el idioma: ");
 		System.out.println("1. Español");
@@ -299,8 +299,7 @@ public class Videoclub {
 		System.out.println("5. Alemán");
 		String aux= Utiles.leerDatos();
 		idioma= aux;
-		System.out.println("¡Estamos en ESPAÑA COÑO, elije la opcion 1 o te vas a tu pais.¡¡¡¡VIVA ESPAÑA COJONES!!!!");
-		}	
+			
 		
 		
 	}
