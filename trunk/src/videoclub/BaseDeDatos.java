@@ -443,8 +443,8 @@ public class BaseDeDatos {
 			java.sql.Date date = new java.sql.Date(new Date().getTime());
 			
 			psInsertar = con.createStatement(); 
-			psInsertar.executeUpdate("INSERT Into alquileres (idPelicula,idSocio,fechaAlq) Values ("+idPelicula+","+idSocio+",'"+date+"')");
-			
+			psInsertar.executeUpdate("INSERT Into alquileres (idPelicula,idSocio,fechaAlq) Values ("+idPelicula+","+idSocio+",'"+date+"'");
+			psInsertar.executeUpdate("UPDATE alquileres SET titulo = (SELECT titulo FROM peliculas WHERE alquileres.idPeliculas = peliculas.idPelicula)");
 			System.out.println("Se ha alquilado la pelicula correctamente");
 		}catch (SQLException e) {
 			System.out.println("No se pudo alquilar la pelicula correctamente: " + e.getMessage());
@@ -540,8 +540,9 @@ public class BaseDeDatos {
 			Statement st= con.createStatement();
 			ResultSet datos= st.executeQuery("SELECT * FROM movimientos");
 			System.out.println("----Tabla películas recogida de la BASE DE DATOS----");
+			System.out.println(" Ingresos   Gastos    Fecha");
 			while(datos.next()) {
-				System.out.println("--> "+datos.getDouble("ingreso")+"  "+datos.getDouble("gasto")+" "+datos.getDate("fecha")+"<--");
+				System.out.println("--> "+datos.getDouble("ingreso")+"	     "+datos.getDouble("gasto")+"    "+datos.getDate("fecha")+"<--");
 			}
 		} catch (SQLException e) {
 				System.out.println(e.toString());                                                                                            
@@ -564,7 +565,7 @@ public class BaseDeDatos {
 			ResultSet datos= st.executeQuery("SELECT * FROM alquileres");
 			System.out.println("----Tabla alquileres recogida de la BASE DE DATOS----");
 			while(datos.next()) {
-				System.out.println("--> "+datos.getInt("idPelicula")+"  "+datos.getInt("idSocio")+" "+datos.getDate("fechaAlq")+"<--");
+				System.out.println("--> "+datos.getInt("idPelicula")+"  "+datos.getString("titulo")+"  "+datos.getInt("idSocio")+" "+datos.getDate("fechaAlq")+"<--");
 			}
 		} catch (SQLException e) {
 				System.out.println(e.toString());                                                                                            
