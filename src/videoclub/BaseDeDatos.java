@@ -237,7 +237,7 @@ public class BaseDeDatos {
 		try {
 			psSelect = con.createStatement(); 
 			
-			ResultSet rs = psSelect.executeQuery("select datediff(now(), p.fechaUltimoAlq) as dias from peliculas p where p.idPeli="+idPelicula); 
+			ResultSet rs = psSelect.executeQuery("select datediff(now(), fechaAlq) as dias from alquileres where idPelicula="+idPelicula); 
             
             if (rs.next()) { 
             	dias = rs.getInt(rs.getInt(1));
@@ -295,16 +295,18 @@ public class BaseDeDatos {
 	public void devolverPelicula(int idPelicula, int idSocio){
 		int dias;
 		double diferencia;
-		if (verificarPelicula(idPelicula)) {
-			eliminarAlquiler(idSocio,idPelicula);
+		if (verificarAlquiler(idPelicula)) {
 			dias = devuelveDias(idPelicula);
+			eliminarAlquiler(idSocio,idPelicula);
 			diferencia = 0.60*dias;
 			restarDiferencia(diferencia,idSocio);
 			
 		} else {
-			System.out.println("El identificador de la pelicula no existe");
+			System.out.println("La pelicula no se encuentra alquilada");
 		}
 	}
+	
+	
 	
 	public void restarDiferencia(double diferencia,int idSocio){
 		try {
@@ -365,6 +367,39 @@ public class BaseDeDatos {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	public boolean verificarAlquiler(int idPelicula){
+		 Statement psSelect = null;
+		 Pelicula pelicula;
+		 ArrayList aList = new ArrayList();
+		 BaseDeDatos bd = new BaseDeDatos();
+		 boolean flag = false;
+		 
+		 try { 
+			//con = bd.conexionBD();
+			psSelect = con.createStatement(); 
+           ResultSet rs = psSelect.executeQuery("select * from alquileres where idPelicula = "+idPelicula); 
+        
+          // psSelect.setInt(1, idPelicula);
+          
+           if (rs.next()) {
+           	flag = true;
+           } 
+      } catch (SQLException e) { 
+          System.out.println(e.getMessage()); 
+      }/* finally{
+			if(psSelect != null) {
+				try {
+					//con.close();
+				} catch (SQLException e) {
+					System.out.println("No se pudo cerrar correctamente la conexion");
+				}
+			}
+		}*/
+      
+     return flag;
+	}
+	
 	
 	public boolean verificarPelicula(int idPelicula){
 		 Statement psSelect = null;
