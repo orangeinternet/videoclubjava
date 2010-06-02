@@ -108,6 +108,10 @@ public class Videoclub {
 				datos.devolverPelicula(idPelicula, idSocio);
 				break;
 			case 3:
+				//****CERRAR LA CONEXION****
+				/*SIEMPRE DEBEMOS SALIR CUANDO TERMINAMOS EL PROGRAMA
+				 * PORQUE SI NO NO SE CIERRA LA CONEXIÓN
+				 */
 				flag = false;
 				try {
 					datos.getConnection().close();
