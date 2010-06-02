@@ -2,6 +2,7 @@ package videoclub;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -82,7 +83,7 @@ public class Videoclub {
 				System.out.println("Seleccione una opcion: ");
 				System.out.println("1. Alquilar");
 				System.out.println("2. Devolver");
-				System.out.println("3. Salir");
+				System.out.println("3. Salir (y cerrar conexion)");
 				System.out.println("-------------");
 				System.out.println("4. Menú Admin");
 
@@ -106,6 +107,15 @@ public class Videoclub {
 					datos.devolverPelicula(idPelicula, idSocio);
 					break;
 				case 3:
+					/*IMPORTANTE: Salir del programa siempre seleccionando esta opción
+					 * si no, petamos la base de datos con conexiones abiertas
+					 */
+					try {
+						datos.getConnection().close();
+					} catch (SQLException e) {
+						System.out.println(e.toString());
+						e.printStackTrace();
+					}
 					flag = false;
 					break;
 				case 4:
