@@ -168,10 +168,10 @@ public class BaseDeDatos {
 	public void mostrarNovedades(ArrayList novedades){
 		
 		if(novedades.size() == 0) {
-			System.out.println("En este momento no hay novedades");
+			System.out.println("En este memento no hay novedades");
 		} else {
 			for(Object o:novedades){
-				System.out.println("\n Nº de veces alquiladas: " + ((Pelicula) o).getNumAlquiler());
+				System.out.println("\n Nï¿½ de veces alquiladas: " + ((Pelicula) o).getNumAlquiler());
 				System.out.println(" Titulo: " + ((Pelicula) o).getTitulo());
 				System.out.println(" Genero: " + ((Pelicula) o).getGenero());
 				System.out.println(" Ultimo Alquiler: " + ((Pelicula) o).getFechaUltimoAlq());
@@ -192,7 +192,7 @@ public class BaseDeDatos {
 		} else {
 			for(Object o:top){
 				p = (Pelicula) o;
-				System.out.println("\n Nº de veces alquiladas: " + p.getNumAlquiler());
+				System.out.println("\n Nï¿½ de veces alquiladas: " + p.getNumAlquiler());
 				System.out.println(" Titulo: " + p.getTitulo());
 				System.out.println(" Genero: " + p.getGenero());
 				System.out.println(" Ultimo Alquiler: " + p.getFechaUltimoAlq());
@@ -248,7 +248,7 @@ public class BaseDeDatos {
 	}
 	
 	/**
-	 * Metodo que devuelve el numero de días entre la fecha actual y la fecha del ultimo alquiler
+	 * Metodo que devuelve el numero de dï¿½as entre la fecha actual y la fecha del ultimo alquiler
 	 * @param idPelicula
 	 * @return
 	 */
@@ -288,7 +288,7 @@ public class BaseDeDatos {
 	}
 	
 	/**
-	 * Almacena una nueva película en base de datos
+	 * Almacena una nueva pelï¿½cula en base de datos
 	 * @param p
 	 */
 	public void almacenarPelicula(Pelicula p){
@@ -317,7 +317,7 @@ public class BaseDeDatos {
 	}
 	
 	/**
-	 * Un socio devuelve una película
+	 * Un socio devuelve una pelï¿½cula
 	 * @param idPelicula
 	 * @param idSocio
 	 */
@@ -413,7 +413,7 @@ public class BaseDeDatos {
 	}
 	
 	/**
-	 * Metodo que verifica si una pelicula está alquilada
+	 * Metodo que verifica si una pelicula estï¿½ alquilada
 	 * @param idPelicula
 	 * @return
 	 */
@@ -594,7 +594,7 @@ public class BaseDeDatos {
 		try {
 			Statement st= con.createStatement();
 			ResultSet datos= st.executeQuery("SELECT * FROM peliculas");
-			System.out.println("----Tabla películas recogida de la BASE DE DATOS----");
+			System.out.println("----Tabla pelï¿½culas recogida de la BASE DE DATOS----");
 			while(datos.next()) {
 				System.out.println("--> "+datos.getInt("Id")+" "+datos.getString("titulo")+"  "+datos.getString("genero")+" <--");
 			}
@@ -633,7 +633,7 @@ public class BaseDeDatos {
 		try {
 			Statement st= con.createStatement();
 			ResultSet datos= st.executeQuery("SELECT * FROM movimientos");
-			System.out.println("----Tabla películas recogida de la BASE DE DATOS----");
+			System.out.println("----Tabla pelï¿½culas recogida de la BASE DE DATOS----");
 			System.out.println(" Ingresos   Gastos    Fecha");
 			while(datos.next()) {
 				System.out.println("--> "+datos.getDouble("ingreso")+"	     "+datos.getDouble("gasto")+"    "+datos.getDate("fecha")+"<--");
